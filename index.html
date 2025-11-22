@@ -108,16 +108,16 @@
                     { id: 'd', text: "Pechina" }
                 ],
                 correctAnswer: 'a',
-                explanation: "La respuesta correcta es la a) Fontana. La RAE define fontana simplemente como \"Perteneciente a la fuente\" o como \"manantial de agua que brota de la tierra\"."
+                explanation: "La respuesta correcta es la a) Fontana. La RAE define fontana simplemente como \"Perteneciente a la fuente\" o como \"manantial de agua que brota de la tierra\", coincidiendo exactamente con el enunciado."
             },
             {
                 id: 2,
-                question: "Señale qué definición es la que se corresponde con la palabra.",
+                question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.",
                 options: [
                     { id: 'a', text: "Menoscabar, disminuir algo no material." },
                     { id: 'b', text: "Poner nervioso." },
                     { id: 'c', text: "Estar subordinado a alguien o algo." },
-                    { id: 'd', text: "Echar a perder cualquier asunto." }
+                    { id: 'd', text: "Echar a perder cualquier asunto. " }
                 ],
                 correctAnswer: 'b',
                 explanation: "Enervar: Poner nervioso, excitar, airar. En el contexto de oposiciones, suele buscarse esta acepción frente a 'debilitar'."
@@ -263,7 +263,7 @@
                 );
             }
 
-            // --- PANTALLA 3: QUIZ (Optimizada) ---
+            // --- PANTALLA 3: QUIZ (Compactado Final) ---
             const currentQuestion = questionsDatabase[currentQuestionIndex];
             return (
                 <div className="h-full w-full bg-slate-50 flex flex-col items-center font-sans fade-in">
@@ -293,7 +293,8 @@
                             {currentQuestion.question}
                         </h3>
 
-                        <div className="space-y-2.5 mb-4">
+                        {/* Opciones: Reducido margen inferior a mb-2 */}
+                        <div className="space-y-2.5 mb-2">
                             {currentQuestion.options.map((option) => {
                                 const isSelected = selectedOption === option.id;
                                 const isCorrect = option.id === currentQuestion.correctAnswer;
@@ -340,11 +341,9 @@
                         </div>
 
                         {isAnswered && (
-                            // CAMBIOS APLICADOS AQUÍ:
-                            // 1. mt-4 en vez de mt-auto para acercarlo al bloque anterior
-                            // 2. Botón con py-3 en vez de py-3.5 para hacerlo más fino
-                            <div className="mt-4 pt-2 slide-up">
-                                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4">
+                            // Explicación y Botón: Reducido margen superior (mt-1) y ajustado botón
+                            <div className="mt-1 pt-2 slide-up">
+                                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-3">
                                     <div className="flex gap-2.5">
                                         <div className="mt-0.5 text-blue-500 shrink-0"><IconCheck /></div>
                                         <div>
@@ -353,13 +352,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button 
-                                    onClick={nextQuestion}
-                                    className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-200 active:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                                >
-                                    {currentQuestionIndex < questionsDatabase.length - 1 ? 'Siguiente Pregunta' : 'Ver Resultados'}
-                                    <IconChevronRight />
-                                </button>
+                                
+                                {/* Botón ajustado al texto, centrado y menos alto */}
+                                <div className="flex justify-center">
+                                    <button 
+                                        onClick={nextQuestion}
+                                        className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-200 active:bg-blue-700 active:scale-[0.98] transition-all flex items-center gap-2"
+                                    >
+                                        {currentQuestionIndex < questionsDatabase.length - 1 ? 'Siguiente Pregunta' : 'Ver Resultados'}
+                                        <IconChevronRight />
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>
