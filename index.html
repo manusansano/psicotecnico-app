@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -107,16 +108,16 @@
                     { id: 'd', text: "Pechina" }
                 ],
                 correctAnswer: 'a',
-                explanation: "La respuesta correcta es la a) Fontana. La RAE define fontana como \"Perteneciente a la fuente\", o como \"manantial de agua que brota de la tierra\", coincidiendo exactamente con el enunciado."
+                explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\", coincidiendo exactamente con el enunciado."
             },
             {
                 id: 2,
-                question: "Señale qué definición es la que se corresponde con la palabra.",
+                question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.",
                 options: [
-                    { id: 'a', text: "Menoscabar, disminuir algo no material." },
+                    { id: 'a', text: "Menoscabar, disminuir algo no material. MELLAR" },
                     { id: 'b', text: "Poner nervioso." },
                     { id: 'c', text: "Estar subordinado a alguien o algo." },
-                    { id: 'd', text: "Echar a perder cualquier asunto." }
+                    { id: 'd', text: "Echar a perder cualquier asunto. ESTROPEAR" }
                 ],
                 correctAnswer: 'b',
                 explanation: "Enervar: Poner nervioso, excitar, airar. En el contexto de oposiciones, suele buscarse esta acepción frente a 'debilitar'."
@@ -202,26 +203,22 @@
                 }
             };
 
-            // --- PANTALLA 1: PORTADA (Alineada arriba, botón compacto) ---
+            // --- PANTALLA 1: PORTADA ---
             if (screen === 'welcome') {
                 return (
                     <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-start pt-8 p-4 relative overflow-hidden">
                         
                         <div className="w-full max-w-sm text-center z-10 slide-up flex flex-col items-center justify-start gap-2">
-                            {/* Título */}
                             <h1 className="text-5xl font-extrabold text-slate-800 mb-1 tracking-tight">VerbalOpo</h1>
                             
-                            {/* Frase */}
                             <div className="px-4 leading-tight">
                                 <p className="text-lg text-slate-600 font-semibold">
                                     La diferencia entre dudar y acertar está en tu entrenamiento. Potencia tu verbal.
                                 </p>
                             </div>
 
-                            {/* Ilustración */}
                             <CustomPhoneIllustration />
 
-                            {/* Botón */}
                             <div className="mt-4">
                                 <button 
                                     onClick={startQuiz}
@@ -266,17 +263,16 @@
                 );
             }
 
-            // --- PANTALLA 3: QUIZ (Optimizada para móvil) ---
+            // --- PANTALLA 3: QUIZ (Optimizada) ---
             const currentQuestion = questionsDatabase[currentQuestionIndex];
             return (
                 <div className="h-full w-full bg-slate-50 flex flex-col items-center font-sans fade-in">
                     
-                    {/* Header Súper Compacto */}
+                    {/* Header */}
                     <div className="w-full max-w-md bg-white shadow-sm z-10 px-4 py-3 flex items-center justify-between shrink-0">
                         <button onClick={goHome} className="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
                             <IconHome />
                         </button>
-                        {/* NOMBRE GRANDE Y EN NEGRITA */}
                         <span className="text-xl font-black text-slate-700 tracking-wide">VERBALOPO</span>
                         
                         <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full font-mono font-bold text-sm ${timeLeft < 10 ? 'bg-red-50 text-red-500' : 'bg-slate-100 text-slate-600'}`}>
@@ -284,23 +280,20 @@
                         </div>
                     </div>
 
-                    {/* Área de contenido scrollable */}
+                    {/* Contenido */}
                     <div className="w-full max-w-md flex-1 overflow-y-auto p-4 flex flex-col">
                         
-                        {/* Indicador de pregunta */}
                         <div className="mb-3">
                             <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-extrabold rounded-full tracking-wider">
                                 PREGUNTA {currentQuestionIndex + 1} DE {questionsDatabase.length}
                             </span>
                         </div>
                         
-                        {/* Pregunta (Fuente ajustada) */}
                         <h3 className="text-lg font-bold text-slate-800 leading-snug mb-5">
                             {currentQuestion.question}
                         </h3>
 
-                        {/* Opciones (Más compactas: menos padding vertical) */}
-                        <div className="space-y-2.5 mb-6">
+                        <div className="space-y-2.5 mb-4">
                             {currentQuestion.options.map((option) => {
                                 const isSelected = selectedOption === option.id;
                                 const isCorrect = option.id === currentQuestion.correctAnswer;
@@ -346,9 +339,11 @@
                             })}
                         </div>
 
-                        {/* Explicación y Botón Siguiente (Fixed al fondo visualmente o al final del scroll) */}
                         {isAnswered && (
-                            <div className="mt-auto pt-4 slide-up">
+                            // CAMBIOS APLICADOS AQUÍ:
+                            // 1. mt-4 en vez de mt-auto para acercarlo al bloque anterior
+                            // 2. Botón con py-3 en vez de py-3.5 para hacerlo más fino
+                            <div className="mt-4 pt-2 slide-up">
                                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4">
                                     <div className="flex gap-2.5">
                                         <div className="mt-0.5 text-blue-500 shrink-0"><IconCheck /></div>
@@ -360,7 +355,7 @@
                                 </div>
                                 <button 
                                     onClick={nextQuestion}
-                                    className="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-200 active:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                    className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-200 active:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                                 >
                                     {currentQuestionIndex < questionsDatabase.length - 1 ? 'Siguiente Pregunta' : 'Ver Resultados'}
                                     <IconChevronRight />
