@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VerbalOpo - Entrena tu mente</title>
     
-    <!-- CARGAMOS LIBRERÍAS EXTERNAS -->
+    <!-- TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- REACT & REACT DOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- BABEL -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- FUENTES Y ESTILOS -->
+    <!-- ESTILOS PERSONALIZADOS Y FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .slide-up { animation: slideUp 0.6s ease-out forwards; }
         
-        /* Animaciones de flotación con diferentes velocidades */
+        /* Animaciones de flotación */
         .float-slow { animation: float 4s ease-in-out infinite; }
         .float-medium { animation: float 3s ease-in-out 1s infinite; }
         .float-fast { animation: float 3.5s ease-in-out 0.5s infinite; }
@@ -43,50 +47,42 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- 1. ILUSTRACIÓN DEL TELÉFONO (DISEÑO PERSONALIZADO) ---
+        // --- ILUSTRACIÓN PERSONALIZADA ---
         const CustomPhoneIllustration = () => (
             <div className="relative w-72 h-72 mx-auto mt-8">
                 <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-xl">
-                    
-                    {/* Silueta del Teléfono */}
+                    {/* Silueta Teléfono */}
                     <rect x="60" y="20" width="180" height="260" rx="25" fill="none" stroke="#1F3A5F" strokeWidth="8" />
                     <path d="M110 20 L110 30 Q110 40 120 40 L180 40 Q190 40 190 30 L190 20" fill="#1F3A5F" />
 
-                    {/* -- ELEMENTOS FLOTANTES -- */}
-
-                    {/* Burbuja EXTRA: Alifafe (Arriba Derecha) */}
+                    {/* Elementos Flotantes */}
                     <g className="float-fast">
                         <rect x="175" y="35" width="100" height="40" rx="20" fill="#60A5FA" />
                         <path d="M200 75 L205 85 L215 75 Z" fill="#60A5FA" />
                         <text x="225" y="62" textAnchor="middle" fill="white" fontSize="18" fontWeight="bold" fontFamily="sans-serif">Alifafe</text>
                     </g>
                     
-                    {/* Burbuja "ácido" (Naranja - Izquierda) */}
                     <g className="float-slow">
                         <rect x="10" y="60" width="120" height="50" rx="25" fill="#FDA65D" />
-                        <path d="M90 105 L95 120 L105 105 Z" fill="#FDA65D" /> 
+                        <path d="M90 105 L95 120 L105 105 Z" fill="#FDA65D" />
                         <text x="70" y="95" textAnchor="middle" fill="white" fontSize="28" fontWeight="bold" fontFamily="sans-serif">ácido</text>
                     </g>
 
-                    {/* Burbuja "escueto" (Azul Real - Derecha) */}
                     <g className="float-medium">
                         <rect x="140" y="90" width="130" height="45" rx="22.5" fill="#2A6CD1" />
                         <text x="205" y="122" textAnchor="middle" fill="white" fontSize="22" fontWeight="bold" fontFamily="sans-serif">escueto</text>
                     </g>
 
-                    {/* Burbuja "somero" (Azul Oscuro - Centro) */}
                     <g className="float-fast">
                         <rect x="70" y="145" width="130" height="45" rx="22.5" fill="#1F3A5F" />
                         <text x="135" y="177" textAnchor="middle" fill="white" fontSize="22" fontWeight="bold" fontFamily="sans-serif">somero</text>
                     </g>
 
-                    {/* Botón X (Naranja - Abajo) */}
                     <g className="float-slow">
                         <rect x="110" y="210" width="90" height="45" rx="22.5" fill="#FDA65D" />
                         <path d="M145 222 L165 242 M165 222 L145 242" stroke="white" strokeWidth="4" strokeLinecap="round" />
                     </g>
 
-                    {/* Icono Check (Verde - Derecha) */}
                     <g className="float-medium">
                         <circle cx="220" cy="180" r="20" fill="#3F9E70" stroke="white" strokeWidth="2" />
                         <path d="M210 180 L216 186 L230 172" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
@@ -95,14 +91,13 @@
             </div>
         );
 
-        // --- 2. ICONOS UI ---
+        // --- ICONOS ---
         const IconTimer = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg>;
         const IconCheck = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
         const IconX = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
         const IconHome = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
 
-        // --- 3. BASE DE DATOS DE PREGUNTAS ---
-        // Nota: He corregido las comillas internas en la explicación usando \" para evitar errores.
+        // --- BASE DE DATOS ---
         const questionsDatabase = [
             {
                 id: 1,
@@ -154,7 +149,7 @@
             }
         ];
 
-        // --- 4. COMPONENTE PRINCIPAL ---
+        // --- APP ---
         function App() {
             const [screen, setScreen] = useState('welcome');
             const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -210,32 +205,28 @@
                 }
             };
 
-            // PANTALLA 1: PORTADA (Diseño Definitivo)
+            // --- PANTALLA PORTADA ---
             if (screen === 'welcome') {
                 return (
                     <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-center p-6 relative overflow-hidden">
                         <div className="absolute top-[-50px] right-[-50px] w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
                         <div className="absolute bottom-[-50px] left-[-50px] w-60 h-60 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
 
-                        <div className="w-full max-w-sm text-center z-10 slide-up">
+                        <div className="w-full max-w-sm text-center z-10 slide-up flex flex-col h-full justify-center">
                             
-                            {/* TITULO GRANDE */}
-                            <h1 className="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight pt-8">VerbalOpo</h1>
+                            <h1 className="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight pt-4">VerbalOpo</h1>
                             
-                            {/* FRASE MOTIVADORA */}
-                            <div className="px-4 mb-2">
+                            <div className="px-4 mb-4">
                                 <p className="text-lg text-slate-700 font-semibold mb-2 leading-tight">
                                     La diferencia entre dudar y acertar está en tu entrenamiento. Potencia tu verbal.
                                 </p>
-                                <p className="text-sm text-slate-500 mb-4">
-                                    Sinónimos, antónimos, vocabulario, definiciones y mucho más.
-                                </p>
+                                {/* Frase eliminada para ahorrar espacio */}
                             </div>
 
-                            {/* ILUSTRACIÓN (Con Alifafe) */}
-                            <CustomPhoneIllustration />
+                            <div className="flex-1 flex items-center justify-center">
+                                <CustomPhoneIllustration />
+                            </div>
 
-                            {/* BOTÓN COMPACTO */}
                             <div className="mt-8 px-4 flex justify-center">
                                 <button 
                                     onClick={startQuiz}
@@ -245,7 +236,7 @@
                                 </button>
                             </div>
 
-                            <div className="mt-8 text-[11px] text-slate-400 font-medium">
+                            <div className="mt-6 text-[11px] text-slate-400 font-medium">
                                 (c) Manu Sansano
                             </div>
                         </div>
@@ -253,7 +244,7 @@
                 );
             }
 
-            // PANTALLA 2: RESULTADOS
+            // --- PANTALLA RESULTADOS ---
             if (screen === 'results') {
                 return (
                     <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-center p-6 fade-in">
@@ -278,7 +269,7 @@
                 );
             }
 
-            // PANTALLA 3: QUIZ
+            // --- PANTALLA QUIZ ---
             const currentQuestion = questionsDatabase[currentQuestionIndex];
             return (
                 <div className="h-full w-full bg-slate-50 flex flex-col items-center pt-6 px-4 pb-4 font-sans fade-in">
@@ -302,7 +293,8 @@
                                 PREGUNTA {currentQuestionIndex + 1} DE {questionsDatabase.length}
                             </span>
                             
-                            <h3 className="text-xl font-bold text-slate-800 leading-snug mb-8">
+                            {/* FUENTE REDUCIDA DE XL A LG PARA AHORRAR ESPACIO */}
+                            <h3 className="text-lg font-bold text-slate-800 leading-snug mb-8">
                                 {currentQuestion.question}
                             </h3>
 
