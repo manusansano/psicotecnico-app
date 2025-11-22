@@ -12,7 +12,7 @@ window.MisPreguntas = [
             { id: 'd', text: "Pechina" }
         ],
         correctAnswer: 'a',
-        explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\"."
+        explanation: "La respuesta correcta es la a) Fontana. La RAE define fontana como \"Perteneciente a la fuente\" o bien como \"manantial de agua que brota de la tierra\"."
     },
     {
         id: 2,
