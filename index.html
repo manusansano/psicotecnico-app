@@ -155,7 +155,7 @@
         ];
 
         /* ==========================================================================
-           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST (Completa 33)
+           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST (Completa 32)
            ==========================================================================
         */
         const questionsDatabase = [
@@ -198,34 +198,34 @@
 
         // ILUSTRACIÓN (Visual abstracta: Preguntas de examen flotantes - CENTRADA Y COMPACTADA)
         const ExamQuestionsIllustration = () => (
-            <div className="relative w-full h-44 mx-auto my-4 flex items-center justify-center">
+            <div className="relative w-full h-40 mx-auto my-2 flex items-center justify-center">
                 {/* Fondo decorativo sutil */}
-                <div className="absolute w-60 h-60 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
+                <div className="absolute w-56 h-56 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
 
                 {/* Elemento Central */}
-                <div className="relative z-10 bg-white/80 backdrop-blur-sm border border-white shadow-xl rounded-full p-4 w-24 h-24 flex flex-col justify-center items-center float-slow">
-                    <div className="text-indigo-600 text-5xl font-black">?</div>
+                <div className="relative z-10 bg-white/80 backdrop-blur-sm border border-white shadow-xl rounded-full p-3 w-20 h-20 flex flex-col justify-center items-center float-slow">
+                    <div className="text-indigo-600 text-4xl font-black">?</div>
                 </div>
 
-                {/* BOCADILLOS PEGADOS AL CENTRO - DISEÑO TRIANGULAR AJUSTADO */}
+                {/* BOCADILLOS DISTRIBUIDOS PARA NO SOLAPARSE */}
                 
-                {/* Pregunta 1: Arriba Central */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white border border-blue-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-blue-500/10 float-medium w-36 text-center z-20">
-                    <span className="text-blue-600 font-bold block text-xs">¿Cuál es el sinónimo de ...?</span>
+                {/* 1. Arriba Derecha */}
+                <div className="absolute top-0 right-2 bg-white border border-blue-100 text-slate-600 text-[10px] font-medium px-2 py-1.5 rounded-lg shadow-md shadow-blue-500/10 float-medium w-32 text-center z-20">
+                    <span className="text-blue-600 font-bold block">¿Sinónimo de...?</span>
                 </div>
 
-                {/* Pregunta 2: Abajo Izquierda (Reposicionado para no solapar) */}
-                <div className="absolute bottom-0 left-2 bg-white border border-orange-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-orange-500/10 -rotate-3 float-fast w-32 text-center z-20">
-                    <span className="text-orange-500 font-bold block text-xs">¿Cuál es el antónimo de ...?</span>
+                {/* 2. Abajo Derecha */}
+                <div className="absolute bottom-2 right-2 bg-white border border-red-100 text-slate-600 text-[10px] font-medium px-2 py-1.5 rounded-lg shadow-md shadow-red-500/10 rotate-3 float-slow w-32 text-center z-20">
+                    <span className="text-red-500 font-bold block">¿Error en...?</span>
                 </div>
 
-                {/* Pregunta 3: A la DERECHA MEDIA (Ajustado para evitar solapamiento) */}
-                <div className="absolute top-1/2 -translate-y-1/2 -right-2 bg-white border border-red-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-red-500/10 rotate-3 float-slow w-32 text-center z-20">
-                    <span className="text-red-500 font-bold block text-xs">¿Qué palabra contiene un error ...?</span>
+                {/* 3. Izquierda Medio (Para equilibrar y evitar solapamiento) */}
+                <div className="absolute top-1/2 -translate-y-1/2 left-2 bg-white border border-orange-100 text-slate-600 text-[10px] font-medium px-2 py-1.5 rounded-lg shadow-md shadow-orange-500/10 -rotate-6 float-fast w-32 text-center z-20">
+                    <span className="text-orange-500 font-bold block">¿Antónimo de...?</span>
                 </div>
                 
                 {/* Decoración mínima */}
-                <div className="absolute top-8 left-10 bg-green-100 text-green-600 p-1 rounded-full shadow-sm float-medium opacity-60 z-0">
+                <div className="absolute top-6 right-1/4 bg-green-100 text-green-600 p-1 rounded-full shadow-sm float-medium opacity-60 z-0">
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 </div>
             </div>
@@ -486,6 +486,7 @@
                                         containerClass = "border-slate-100 opacity-50 bg-slate-50";
                                     }
                                 } else if (isSelected) {
+                                    // CAMBIO AQUI: Borde gris oscuro y fondo transparente para la selección
                                     containerClass = "border-2 border-gray-900 bg-transparent";
                                     textClass = "text-gray-900 font-semibold";
                                     circleClass = "bg-gray-900 text-white";
