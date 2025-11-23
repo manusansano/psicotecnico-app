@@ -16,24 +16,15 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- ESTILOS PERSONALIZADOS Y FUENTES -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Añadimos Quicksand para ese toque "más redondo" si se prefiere, o mantenemos Inter con peso -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overscroll-behavior: none; }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        /* Animaciones flotantes suavizadas */
-        .float-slow { animation: float 6s ease-in-out infinite; }
-        .float-medium { animation: float 5s ease-in-out 1s infinite; }
-        .float-fast { animation: float 4s ease-in-out 0.5s infinite; }
-        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 
-            0% { transform: translateY(0px); } 
-            50% { transform: translateY(-4px); } 
-            100% { transform: translateY(0px); } 
-        }
         
         /* Fondo premium sutil */
         .bg-verbalopo {
@@ -196,62 +187,37 @@
 
         // --- COMPONENTES ---
 
-        // ILUSTRACIÓN: TELÉFONO MINIMALISTA + 8 PALABRAS DENTRO
-        const MinimalistPhoneWithWords = () => (
-            <div className="relative w-full h-56 mx-auto my-2 flex items-center justify-center">
-                {/* Fondo decorativo */}
-                <div className="absolute w-64 h-64 bg-blue-50/80 rounded-full blur-3xl -z-10"></div>
+        // ILUSTRACIÓN: TEXTO Y LISTA INFORMATIVA (Mejorada: Texto más grande, font-bold y colores)
+        const InfoIllustration = () => (
+            <div className="relative w-full h-56 mx-auto my-2 flex flex-col items-center justify-center overflow-hidden">
+                {/* Fondo decorativo sutil (Marca de agua OPO MEC) */}
+                <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-[0.03] pointer-events-none select-none">
+                    <span className="text-8xl font-black text-slate-900 tracking-tighter leading-none text-center">OPO<br/>MEC</span>
+                </div>
 
-                {/* TELÉFONO */}
-                <div className="relative z-10 bg-white border-4 border-slate-800 shadow-xl rounded-[2rem] p-1.5 w-36 h-64 flex flex-col justify-center items-center overflow-hidden">
-                    {/* Pantalla */}
-                    <div className="bg-slate-50 w-full h-full rounded-[1.7rem] relative overflow-hidden">
-                        
-                        {/* PALABRAS FLOTANTES (8 palabras, tamaño 10px) */}
-                        
-                        {/* 1. Alifafe */}
-                        <div className="absolute top-4 left-2 bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-slow">
-                            Alifafe
-                        </div>
-
-                        {/* 2. Disgregar */}
-                        <div className="absolute top-8 right-2 bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
-                            Disgregar
-                        </div>
-
-                        {/* 3. Cadencia */}
-                        <div className="absolute top-16 left-4 bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm -rotate-3 float-fast">
-                            Cadencia
-                        </div>
-
-                        {/* 4. INCIERTO */}
-                        <div className="absolute top-20 right-3 bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm rotate-2 float-slow">
-                            INCIERTO
-                        </div>
-
-                        {/* 5. Rémora */}
-                        <div className="absolute bottom-24 left-2 bg-red-100 text-red-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
-                            Rémora
-                        </div>
-
-                         {/* 6. ANODINO */}
-                        <div className="absolute bottom-16 right-2 bg-teal-100 text-teal-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm -rotate-2 float-fast">
-                            ANODINO
-                        </div>
-
-                        {/* 7. LÍVIDO */}
-                        <div className="absolute bottom-8 left-3 bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm rotate-3 float-slow">
-                            LÍVIDO
-                        </div>
-
-                        {/* 8. Loable */}
-                        <div className="absolute bottom-3 right-4 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
-                            Loable
-                        </div>
-                    </div>
-                    
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-3 bg-slate-800 rounded-b-lg z-20"></div>
+                {/* Contenido Informativo Aumentado */}
+                <div className="relative z-10 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl rounded-2xl p-5 w-full max-w-[340px] flex flex-col justify-center">
+                    <h3 className="text-slate-800 font-black text-sm mb-3 leading-tight text-center tracking-wide">
+                        PRÁCTICA LAS PREGUNTAS:
+                    </h3>
+                    <ul className="space-y-3 font-bold text-sm leading-tight">
+                        <li className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-blue-600 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
+                            <span className="text-blue-700">Señale qué palabra corresponde a la siguiente definición: ...</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-orange-500 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
+                            <span className="text-orange-700">Señale o indique cuál es el sinónimo de la palabra ...</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-red-500 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
+                            <span className="text-red-700">Señale o indique cuál es el antónimo de la palabra ...</span>
+                        </li>
+                         <li className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-emerald-600 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
+                            <span className="text-emerald-700">Señale qué definición es la que se corresponde con la palabra ...</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );
@@ -377,16 +343,16 @@
                             <h1 className="text-5xl font-extrabold text-slate-900 mb-1 tracking-tight leading-tight">OpoVerbal</h1>
                             <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
                         </div>
-                        <div className="flex-1 flex items-center justify-center relative w-full">
-                             {/* CAMBIO: TELÉFONO MINIMALISTA CON 8 PALABRAS */}
-                             <MinimalistPhoneWithWords />
+                        <div className="flex-1 flex items-center justify-center relative w-full px-6">
+                             {/* CAMBIO: ILUSTRACIÓN ACTUALIZADA CON LETRA MÁS GRANDE Y CLARA */}
+                             <InfoIllustration />
                         </div>
                         <div className="flex-none pb-4 px-6 z-20 w-full max-w-sm mx-auto">
                             <div className="flex justify-between items-center mb-2 gap-4">
-                                <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all h-10">
+                                <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all h-10">
                                     <IconBook /> Ortografía
                                 </button>
-                                <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1.5 px-2 flex flex-col items-center justify-center relative group h-10">
+                                <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1 px-2 flex flex-col items-center justify-center relative group h-10">
                                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none">Nº Preguntas</span>
                                     <div className="relative flex items-center justify-center w-full h-5">
                                         <select value={questionCount} onChange={handleQuestionCountChange} className="absolute inset-0 w-full h-full opacity-0 z-10 native-select cursor-pointer">
@@ -411,7 +377,7 @@
                                     <span>Empezar a practicar</span>
                                 </button>
                             </div>
-                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v4.0</div>
+                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.7.1</div>
                         </div>
                     </div>
                 );
