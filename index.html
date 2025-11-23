@@ -41,10 +41,27 @@
         /* Ocultar scrollbar */
         ::-webkit-scrollbar { display: none; }
 
-        /* Estilo discreto para el input número */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button {  
-           opacity: 1;
+        /* Estilo para el triángulo del tooltip */
+        .tooltip-arrow {
+            width: 0; 
+            height: 0; 
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #1e293b;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Estilo personalizado para el select para que parezca solo texto */
+        .native-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            text-align: center;
+            text-align-last: center;
         }
     </style>
 </head>
@@ -55,10 +72,8 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        
-
-              /* ==========================================================================
-           ⬇️⬇️⬇️ SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA (ACTUALIZADA) ⬇️⬇️⬇️
+        /* ==========================================================================
+           SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA
            ==========================================================================
         */
         const spellingDatabase = [
@@ -67,7 +82,6 @@
                 title: "HECHO / ECHO",
                 content: (
                     <div className="space-y-6">
-                        {/* HECHO */}
                         <div>
                             <p className="mb-2 text-lg"><span className="font-black text-blue-600">HECHO</span> (con H):</p>
                             <p className="mb-2">Es el <strong>"hijo"</strong> del verbo <strong>HACER</strong>. Como su padre (<em>hacer</em>) lleva H, él es muy obediente y se la deja puesta siempre.</p>
@@ -76,8 +90,6 @@
                                 <li>"Ya he <strong>hecho</strong> todos los deberes de mates".</li>
                                 <li>"El disfraz está <strong>hecho</strong> a mano".</li>
                             </ul>
-                            
-                            {/* EL TRUCO HECHO */}
                             <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 flex gap-3 items-start">
                                 <span className="text-3xl">💡</span>
                                 <div>
@@ -86,10 +98,7 @@
                                 </div>
                             </div>
                         </div>
-
                         <hr className="border-slate-200" />
-
-                        {/* ECHO */}
                         <div>
                             <p className="mb-2 text-lg"><span className="font-black text-blue-600">ECHO</span> (sin H):</p>
                             <p className="mb-2">Viene del verbo <strong>ECHAR</strong>, que significa tirar, lanzar, poner algo o expulsar.</p>
@@ -98,8 +107,6 @@
                                 <li>"Siempre <strong>echo</strong> los plásticos al contenedor".</li>
                                 <li>"Le <strong>echo</strong> mucha sal a las patatas".</li>
                             </ul>
-
-                            {/* EL TRUCO ECHO */}
                             <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 flex gap-3 items-start">
                                 <span className="text-3xl">💡</span>
                                 <div>
@@ -231,10 +238,10 @@ Ej: 'No quiero eso tampoco'.
 TAN POCO: Cuantificador + adjetivo/adverbio (cantidad).
 Ej: 'Comió tan poco que se desmayó'.`
             }
-        ];  
+        ];
 
         /* ==========================================================================
-           ⬇️⬇️⬇️ SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST ⬇️⬇️⬇️
+           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST
            ==========================================================================
         */
         const questionsDatabase = [
@@ -637,7 +644,7 @@ Ej: 'Comió tan poco que se desmayó'.`
         ];
 
         /* ==========================================================================
-           ⬇️⬇️⬇️ SECCIÓN 3: CÓDIGO DE LA APLICACIÓN (LÓGICA Y DISEÑO) ⬇️⬇️⬇️
+           SECCIÓN 3: CÓDIGO DE LA APLICACIÓN (LÓGICA Y DISEÑO)
            ==========================================================================
         */
 
@@ -697,6 +704,7 @@ Ej: 'Comió tan poco que se desmayó'.`
         const IconArrowLeft = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>;
         const IconRefresh = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/></svg>;
         const IconPlay = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
+        const IconHelp = () => <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>;
 
         function App() {
             const [screen, setScreen] = useState('welcome');
@@ -844,17 +852,32 @@ Ej: 'Comió tan poco que se desmayó'.`
                                     <span className="text-xs font-bold uppercase tracking-wider">Ortografía</span>
                                 </button>
 
-                                {/* Selector de Preguntas */}
-                                <div className="flex items-center bg-white rounded-full px-3 py-1 shadow-sm border border-slate-200 gap-1">
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Preguntas:</span>
-                                    <input 
-                                        type="number" 
-                                        min="1" 
-                                        max={questionsDatabase.length}
-                                        value={questionCount}
-                                        onChange={handleQuestionCountChange}
-                                        className="w-10 text-center font-bold text-sm text-blue-600 outline-none bg-transparent border-b border-slate-200 focus:border-blue-500 transition-colors"
-                                    />
+                                {/* Selector de Preguntas con Tooltip (con SELECT para selector nativo) */}
+                                <div className="group relative flex items-center bg-white rounded-full px-3 py-1 shadow-sm border border-slate-200 gap-1 cursor-help">
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                                        Nº Preguntas:
+                                    </span>
+                                    {/* SELECT OCULTO ENCIMA DEL INPUT (o sustituyendo) PARA USAR EL PICKER NATIVO */}
+                                    <div className="relative w-10 h-6">
+                                         <select
+                                            value={questionCount}
+                                            onChange={(e) => setQuestionCount(parseInt(e.target.value))}
+                                            className="absolute inset-0 w-full h-full opacity-0 z-10 native-select cursor-pointer"
+                                        >
+                                            {Array.from({ length: questionsDatabase.length }, (_, i) => i + 1).map(num => (
+                                                <option key={num} value={num}>{num}</option>
+                                            ))}
+                                        </select>
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <span className="text-center font-bold text-sm text-blue-600 border-b border-slate-200">{questionCount}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* TOOLTIP (BOCADILLO) */}
+                                    <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-32 bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-lg z-50 text-center leading-tight animate-in fade-in zoom-in duration-200">
+                                        Aquí eliges la cantidad de preguntas del test
+                                        <div className="tooltip-arrow"></div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -878,7 +901,7 @@ Ej: 'Comió tan poco que se desmayó'.`
                             </div>
 
                             <div className="mt-6 text-[10px] text-slate-400 font-medium tracking-widest">
-                                (c) Manu Sansano v1.3.2
+                                (c) manu sansano v1.1
                             </div>
                         </div>
                     </div>
@@ -924,11 +947,17 @@ Ej: 'Comió tan poco que se desmayó'.`
                             <h2 className="text-lg font-black text-slate-800 tracking-tight truncate">{selectedSpellingTopic.title}</h2>
                         </div>
                         
-                        <div className="flex-1 overflow-y-auto p-6">
+                        <div className="flex-1 overflow-y-auto p-4 pt-2">
                             <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                                <div className="prose prose-slate text-base leading-relaxed whitespace-pre-line text-slate-700">
-                                    {selectedSpellingTopic.content}
-                                </div>
+                                {typeof selectedSpellingTopic.content === 'string' ? (
+                                    <div className="prose prose-slate text-base leading-relaxed whitespace-pre-line text-slate-700">
+                                        {selectedSpellingTopic.content}
+                                    </div>
+                                ) : (
+                                    <div className="text-slate-700 text-base leading-relaxed">
+                                        {selectedSpellingTopic.content}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
