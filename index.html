@@ -80,14 +80,14 @@
         const { useState, useEffect } = React;
 
         // --- UTILS ---
-        const shuffleArray = (array) => {
+        function shuffleArray(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
             }
             return newArray;
-        };
+        }
 
         /* ==========================================================================
            SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA
@@ -155,11 +155,11 @@
         ];
 
         /* ==========================================================================
-           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST (Completa 32)
+           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST (Completa 33)
            ==========================================================================
         */
         const questionsDatabase = [
-            { id: 1, question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"", options: [{ id: 'a', text: "Fontana" }, { id: 'b', text: "Riachuelo" }, { id: 'c', text: "Caudal" }, { id: 'd', text: "Pechina" }], correctAnswer: 'a', explanation: "Fontana: Manantial de agua que brota de la tierra." },
+            { id: 1, question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"", options: [{ id: 'a', text: "Fontana" }, { id: 'b', text: "Riachuelo" }, { id: 'c', text: "Caudal" }, { id: 'd', text: "Pechina" }], correctAnswer: 'a', explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\"." },
             { id: 2, question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.", options: [{ id: 'a', text: "Menoscabar, disminuir algo no material. MELLAR" }, { id: 'b', text: "Poner nervioso." }, { id: 'c', text: "Estar subordinado a alguien o algo." }, { id: 'd', text: "Echar a perder cualquier asunto. ESTROPEAR" }], correctAnswer: 'b', explanation: "Enervar: Poner nervioso, excitar." },
             { id: 3, question: "Señale cuál es el sinónimo de la palabra ACERBO.", options: [{ id: 'a', text: "Alegre" }, { id: 'b', text: "Famélico" }, { id: 'c', text: "Fatídico" }, { id: 'd', text: "Desapacible" }], correctAnswer: 'd', explanation: "Acerbo: Áspero, cruel, desapacible." },
             { id: 4, question: "Señale el antónimo de: EFÍMERO", options: [{ id: 'a', text: "Fugaz" }, { id: 'b', text: "Duradero" }, { id: 'c', text: "Pasajero" }, { id: 'd', text: "Breve" }], correctAnswer: 'b', explanation: "Efímero: Pasajero. Antónimo: Duradero." },
@@ -198,40 +198,35 @@
 
         // ILUSTRACIÓN (Visual abstracta: Preguntas de examen flotantes - CENTRADA Y COMPACTADA)
         const ExamQuestionsIllustration = () => (
-            <div className="relative w-full h-52 mx-auto my-4 flex items-center justify-center">
+            <div className="relative w-full h-44 mx-auto my-4 flex items-center justify-center">
                 {/* Fondo decorativo sutil */}
-                <div className="absolute w-64 h-64 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
+                <div className="absolute w-60 h-60 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
 
                 {/* Elemento Central */}
                 <div className="relative z-10 bg-white/80 backdrop-blur-sm border border-white shadow-xl rounded-full p-4 w-24 h-24 flex flex-col justify-center items-center float-slow">
                     <div className="text-indigo-600 text-5xl font-black">?</div>
                 </div>
 
-                {/* BOCADILLOS MUCHO MÁS CERCA DEL CENTRO (Sobrepuestos visualmente para compactar) */}
+                {/* BOCADILLOS PEGADOS AL CENTRO - DISEÑO TRIANGULAR AJUSTADO */}
                 
-                {/* Pregunta 1: Arriba Central - Bajado para tocar el círculo */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-white border border-blue-100 text-slate-600 text-xs font-medium px-3 py-2 rounded-lg shadow-lg shadow-blue-500/10 float-medium w-28 text-center z-20">
-                    <span className="text-blue-600 font-bold block mb-0.5">¿Sinónimo?</span>
-                    de la palabra...
+                {/* Pregunta 1: Arriba Central */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white border border-blue-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-blue-500/10 float-medium w-36 text-center z-20">
+                    <span className="text-blue-600 font-bold block text-xs">¿Cuál es el sinónimo de ...?</span>
                 </div>
 
-                {/* Pregunta 2: Abajo Izquierda - Subido y metido a la derecha */}
-                <div className="absolute bottom-10 left-10 bg-white border border-orange-100 text-slate-600 text-xs font-medium px-3 py-2 rounded-lg shadow-lg shadow-orange-500/10 -rotate-6 float-fast w-28 text-center z-20">
-                    <span className="text-orange-500 font-bold block mb-0.5">¿Antónimo?</span>
-                    de la palabra...
+                {/* Pregunta 2: Abajo Izquierda (Reposicionado para no solapar) */}
+                <div className="absolute bottom-0 left-2 bg-white border border-orange-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-orange-500/10 -rotate-3 float-fast w-32 text-center z-20">
+                    <span className="text-orange-500 font-bold block text-xs">¿Cuál es el antónimo de ...?</span>
                 </div>
 
-                {/* Pregunta 3: Abajo Derecha - Subido y metido a la izquierda */}
-                <div className="absolute bottom-12 right-8 bg-white border border-red-100 text-slate-600 text-xs font-medium px-3 py-2 rounded-lg shadow-lg shadow-red-500/10 rotate-6 float-slow w-28 text-center z-20">
-                    ¿Qué palabra tiene <span className="text-red-500 font-bold">error</span>?
+                {/* Pregunta 3: A la DERECHA MEDIA (Ajustado para evitar solapamiento) */}
+                <div className="absolute top-1/2 -translate-y-1/2 -right-2 bg-white border border-red-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-red-500/10 rotate-3 float-slow w-32 text-center z-20">
+                    <span className="text-red-500 font-bold block text-xs">¿Qué palabra contiene un error ...?</span>
                 </div>
                 
-                {/* Elementos decorativos acercados */}
-                <div className="absolute top-12 right-16 bg-green-100 text-green-600 p-1.5 rounded-full shadow-sm float-medium opacity-60 z-0">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <div className="absolute top-14 left-16 bg-indigo-100 text-indigo-600 p-1.5 rounded-full shadow-sm float-fast opacity-60 z-0">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                {/* Decoración mínima */}
+                <div className="absolute top-8 left-10 bg-green-100 text-green-600 p-1 rounded-full shadow-sm float-medium opacity-60 z-0">
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 </div>
             </div>
         );
@@ -353,16 +348,15 @@
             if (screen === 'welcome') {
                 return (
                     <div className="h-full w-full bg-verbalopo flex flex-col relative overflow-hidden font-sans">
-                        <div className="flex-none pt-10 pb-4 px-6 text-center z-10">
-                            <h1 className="text-5xl font-extrabold text-slate-900 mb-2 tracking-tight leading-tight">OpoVerbal</h1>
+                        <div className="flex-none pt-2 pb-1 px-6 text-center z-10">
+                            <h1 className="text-5xl font-extrabold text-slate-900 mb-1 tracking-tight leading-tight">OpoVerbal</h1>
                             <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
                         </div>
                         <div className="flex-1 flex items-center justify-center relative w-full">
-                             {/* CAMBIO: Bocadillos centrados alrededor de la interrogación */}
                              <ExamQuestionsIllustration />
                         </div>
-                        <div className="flex-none pb-8 px-6 z-20 w-full max-w-sm mx-auto">
-                            <div className="flex justify-between items-center mb-6 gap-4">
+                        <div className="flex-none pb-4 px-6 z-20 w-full max-w-sm mx-auto">
+                            <div className="flex justify-between items-center mb-2 gap-4">
                                 <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all">
                                     <IconBook /> Ortografía
                                 </button>
@@ -391,7 +385,7 @@
                                     <span>Empezar a practicar</span>
                                 </button>
                             </div>
-                            <div className="mt-6 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.0</div>
+                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.0</div>
                         </div>
                     </div>
                 );
@@ -492,9 +486,9 @@
                                         containerClass = "border-slate-100 opacity-50 bg-slate-50";
                                     }
                                 } else if (isSelected) {
-                                    containerClass = "border-blue-500 bg-blue-50 ring-1 ring-blue-500";
-                                    textClass = "text-blue-900 font-semibold";
-                                    circleClass = "bg-blue-500 text-white";
+                                    containerClass = "border-2 border-gray-900 bg-transparent";
+                                    textClass = "text-gray-900 font-semibold";
+                                    circleClass = "bg-gray-900 text-white";
                                 }
                                 return (
                                     <button key={option.id} onClick={() => handleOptionSelect(option.id)} disabled={isAnswered} className={`w-full text-left py-2.5 px-3 rounded-xl transition-all duration-200 flex items-center gap-3 active:scale-[0.99] ${containerClass}`}>
