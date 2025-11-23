@@ -1,6 +1,3 @@
-// Aquí puedes añadir tantas preguntas como quieras.
-// Solo asegúrate de seguir el mismo formato y usar comas entre preguntas.
-
 window.MisPreguntas = [
   {
     id: 1,
