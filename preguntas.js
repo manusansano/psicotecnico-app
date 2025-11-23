@@ -1,7 +1,7 @@
 window.MisPreguntas = [
   {
     id: 1,
-    [cite_start]question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\".", [cite: 2]
+    question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\".", [cite: 2]
     options: [
       [cite_start]{ id: 'a', text: "Fontana." [cite: 3] },
       [cite_start]{ id: 'b', text: "Riachuelo." [cite: 5] },
@@ -13,7 +13,7 @@ window.MisPreguntas = [
   },
   {
     id: 2,
-    [cite_start]question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.", [cite: 7]
+    question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.", [cite: 7]
     options: [
       [cite_start]{ id: 'a', text: "Menoscabar, disminuir, minorar algo no material." [cite: 8] },
       [cite_start]{ id: 'b', text: "Poner nervioso." [cite: 9] },
@@ -25,7 +25,7 @@ window.MisPreguntas = [
   },
   {
     id: 3,
-    [cite_start]question: "Señale cuál es el sinónimo de la palabra ACERBO.", [cite: 12]
+    question: "Señale cuál es el sinónimo de la palabra ACERBO.", [cite: 12]
     options: [
       [cite_start]{ id: 'a', text: "Alegre." [cite: 13] },
       [cite_start]{ id: 'b', text: "Famélico." [cite: 15] },
@@ -37,7 +37,7 @@ window.MisPreguntas = [
   },
   {
     id: 4,
-    [cite_start]question: "Señale qué definición es la que se corresponde con la palabra TRASTO.", [cite: 17]
+    question: "Señale qué definición es la que se corresponde con la palabra TRASTO.", [cite: 17]
     options: [
       [cite_start]{ id: 'a', text: "Cosa inútil, estropeada, vieja o que estorba." [cite: 18] },
       [cite_start]{ id: 'b', text: "Aparato viejo o que funciona mal." [cite: 19] },
