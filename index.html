@@ -31,7 +31,7 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes float { 
             0% { transform: translateY(0px); } 
-            50% { transform: translateY(-8px); } 
+            50% { transform: translateY(-4px); } 
             100% { transform: translateY(0px); } 
         }
         
@@ -159,7 +159,7 @@
            ==========================================================================
         */
         const questionsDatabase = [
-            { id: 1, question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"", options: [{ id: 'a', text: "Fontana" }, { id: 'b', text: "Riachuelo" }, { id: 'c', text: "Caudal" }, { id: 'd', text: "Pechina" }], correctAnswer: 'a', explanation: "Fontana: Manantial de agua que brota de la tierra." },
+            { id: 1, question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"", options: [{ id: 'a', text: "Fontana" }, { id: 'b', text: "Riachuelo" }, { id: 'c', text: "Caudal" }, { id: 'd', text: "Pechina" }], correctAnswer: 'a', explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\"." },
             { id: 2, question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.", options: [{ id: 'a', text: "Menoscabar, disminuir algo no material. MELLAR" }, { id: 'b', text: "Poner nervioso." }, { id: 'c', text: "Estar subordinado a alguien o algo." }, { id: 'd', text: "Echar a perder cualquier asunto. ESTROPEAR" }], correctAnswer: 'b', explanation: "Enervar: Poner nervioso, excitar." },
             { id: 3, question: "Señale cuál es el sinónimo de la palabra ACERBO.", options: [{ id: 'a', text: "Alegre" }, { id: 'b', text: "Famélico" }, { id: 'c', text: "Fatídico" }, { id: 'd', text: "Desapacible" }], correctAnswer: 'd', explanation: "Acerbo: Áspero, cruel, desapacible." },
             { id: 4, question: "Señale el antónimo de: EFÍMERO", options: [{ id: 'a', text: "Fugaz" }, { id: 'b', text: "Duradero" }, { id: 'c', text: "Pasajero" }, { id: 'd', text: "Breve" }], correctAnswer: 'b', explanation: "Efímero: Pasajero. Antónimo: Duradero." },
@@ -196,37 +196,62 @@
 
         // --- COMPONENTES ---
 
-        // ILUSTRACIÓN (Visual abstracta: Preguntas de examen flotantes - CENTRADA Y COMPACTADA)
-        const ExamQuestionsIllustration = () => (
-            <div className="relative w-full h-44 mx-auto my-4 flex items-center justify-center">
-                {/* Fondo decorativo sutil */}
-                <div className="absolute w-60 h-60 bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
+        // ILUSTRACIÓN: TELÉFONO MINIMALISTA + 8 PALABRAS DENTRO
+        const MinimalistPhoneWithWords = () => (
+            <div className="relative w-full h-56 mx-auto my-2 flex items-center justify-center">
+                {/* Fondo decorativo */}
+                <div className="absolute w-64 h-64 bg-blue-50/80 rounded-full blur-3xl -z-10"></div>
 
-                {/* Elemento Central */}
-                <div className="relative z-10 bg-white/80 backdrop-blur-sm border border-white shadow-xl rounded-full p-4 w-24 h-24 flex flex-col justify-center items-center float-slow">
-                    <div className="text-indigo-600 text-5xl font-black">?</div>
-                </div>
+                {/* TELÉFONO */}
+                <div className="relative z-10 bg-white border-4 border-slate-800 shadow-xl rounded-[2rem] p-1.5 w-36 h-64 flex flex-col justify-center items-center overflow-hidden">
+                    {/* Pantalla */}
+                    <div className="bg-slate-50 w-full h-full rounded-[1.7rem] relative overflow-hidden">
+                        
+                        {/* PALABRAS FLOTANTES (8 palabras, tamaño 10px) */}
+                        
+                        {/* 1. Alifafe */}
+                        <div className="absolute top-4 left-2 bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-slow">
+                            Alifafe
+                        </div>
 
-                {/* BOCADILLOS: DISEÑO TRIANGULAR (1 Arriba, 2 Abajo Separados) */}
-                
-                {/* 1. Arriba Centro */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white border border-blue-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-blue-500/10 float-medium w-36 text-center z-20">
-                    <span className="text-blue-600 font-bold block text-xs">¿Cuál es el sinónimo de ...?</span>
-                </div>
+                        {/* 2. Disgregar */}
+                        <div className="absolute top-8 right-2 bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
+                            Disgregar
+                        </div>
 
-                {/* 2. Abajo Izquierda (Desplazado a la izquierda para no tocar el otro) */}
-                <div className="absolute bottom-4 left-2 bg-white border border-orange-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-orange-500/10 -rotate-3 float-fast w-32 text-center z-20">
-                    <span className="text-orange-500 font-bold block text-xs">¿Cuál es el antónimo de ...?</span>
-                </div>
+                        {/* 3. Cadencia */}
+                        <div className="absolute top-16 left-4 bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm -rotate-3 float-fast">
+                            Cadencia
+                        </div>
 
-                {/* 3. Abajo Derecha (Desplazado a la derecha) */}
-                <div className="absolute bottom-4 right-2 bg-white border border-red-100 text-slate-600 text-[10px] font-medium px-3 py-2 rounded-lg shadow-lg shadow-red-500/10 rotate-3 float-slow w-32 text-center z-20">
-                    <span className="text-red-500 font-bold block text-xs">¿Qué palabra contiene un error ...?</span>
-                </div>
-                
-                {/* Decoración mínima */}
-                <div className="absolute top-8 right-10 bg-green-100 text-green-600 p-1 rounded-full shadow-sm float-medium opacity-60 z-0">
-                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        {/* 4. INCIERTO */}
+                        <div className="absolute top-20 right-3 bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm rotate-2 float-slow">
+                            INCIERTO
+                        </div>
+
+                        {/* 5. Rémora */}
+                        <div className="absolute bottom-24 left-2 bg-red-100 text-red-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
+                            Rémora
+                        </div>
+
+                         {/* 6. ANODINO */}
+                        <div className="absolute bottom-16 right-2 bg-teal-100 text-teal-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm -rotate-2 float-fast">
+                            ANODINO
+                        </div>
+
+                        {/* 7. LÍVIDO */}
+                        <div className="absolute bottom-8 left-3 bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm rotate-3 float-slow">
+                            LÍVIDO
+                        </div>
+
+                        {/* 8. Loable */}
+                        <div className="absolute bottom-3 right-4 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-lg shadow-sm float-medium">
+                            Loable
+                        </div>
+                    </div>
+                    
+                    {/* Notch */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-3 bg-slate-800 rounded-b-lg z-20"></div>
                 </div>
             </div>
         );
@@ -353,24 +378,25 @@
                             <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
                         </div>
                         <div className="flex-1 flex items-center justify-center relative w-full">
-                             <ExamQuestionsIllustration />
+                             {/* CAMBIO: TELÉFONO MINIMALISTA CON 8 PALABRAS */}
+                             <MinimalistPhoneWithWords />
                         </div>
                         <div className="flex-none pb-4 px-6 z-20 w-full max-w-sm mx-auto">
                             <div className="flex justify-between items-center mb-2 gap-4">
-                                <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all">
+                                <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all h-10">
                                     <IconBook /> Ortografía
                                 </button>
-                                <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1.5 px-2 flex flex-col items-center justify-center relative group">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Nº Preguntas</span>
-                                    <div className="relative flex items-center justify-center w-full">
+                                <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1.5 px-2 flex flex-col items-center justify-center relative group h-10">
+                                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none">Nº Preguntas</span>
+                                    <div className="relative flex items-center justify-center w-full h-5">
                                         <select value={questionCount} onChange={handleQuestionCountChange} className="absolute inset-0 w-full h-full opacity-0 z-10 native-select cursor-pointer">
                                             {Array.from({ length: questionsDatabase.length }, (_, i) => i + 1).map(num => (
                                                 <option key={num} value={num}>{num}</option>
                                             ))}
                                         </select>
-                                        <div className="text-xl font-black text-indigo-600 pointer-events-none">{questionCount}</div>
+                                        <div className="text-xl font-black text-indigo-600 pointer-events-none leading-none">{questionCount}</div>
                                     </div>
-                                    <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-32 bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-lg z-50 text-center leading-tight animate-in fade-in zoom-in duration-200">
+                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-32 bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-lg z-50 text-center leading-tight animate-in fade-in zoom-in duration-200">
                                         Aquí eliges la cantidad de preguntas del test
                                         <div className="tooltip-arrow"></div>
                                     </div>
@@ -379,13 +405,13 @@
                             <div className="flex justify-center">
                                 <button 
                                     onClick={startQuiz}
-                                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-full shadow-xl shadow-indigo-500/20 transform transition active:scale-95 flex items-center justify-center gap-2"
+                                    className="px-8 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-full shadow-xl shadow-indigo-500/20 transform transition active:scale-95 flex items-center justify-center gap-2"
                                 >
                                     <div className="bg-white/20 p-1 rounded-full"><IconPlay /></div>
                                     <span>Empezar a practicar</span>
                                 </button>
                             </div>
-                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.0</div>
+                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v4.0</div>
                         </div>
                     </div>
                 );
