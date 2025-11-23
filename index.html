@@ -56,79 +56,144 @@
         const { useState, useEffect } = React;
 
         /* ==========================================================================
-           ⬇️⬇️⬇️ SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA ⬇️⬇️⬇️
+           ⬇️⬇️⬇️ SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA (ACTUALIZADA) ⬇️⬇️⬇️
            ==========================================================================
         */
         const spellingDatabase = [
             {
                 id: "hecho_echo",
                 title: "HECHO / ECHO",
-                content: "HECHO: Del verbo hacer (participio). Significa realizar algo o un suceso.\nEj: 'He hecho los deberes'. 'Es un hecho probado'.\n\nECHO: Del verbo echar. Significa tirar, lanzar o expulsar.\nEj: 'Echo la carta al buzón'. 'Te echo de menos'."
+                content: `HECHO (con H): Del verbo HACER.
+Es el "hijo" del verbo hacer, y como su padre, lleva H. Se usa para cosas fabricadas, terminadas o sucesos (crear).
+Ej: "Ya he hecho los deberes". "El disfraz está hecho a mano".
+
+💡 EL TRUCO: Si puedes cambiar la palabra por "realizado" o "fabricado", ¡ponle la H sin miedo!
+
+ECHO (sin H): Del verbo ECHAR.
+Significa tirar, lanzar, poner o expulsar. Piensa que este verbo es tan fuerte que "ha echado la H a la basura".
+Ej: "Siempre echo los plásticos al contenedor". "Le echo sal a las patatas". "Te echo de menos".
+
+💡 EL TRUCO: Apréndete esta rima mágica: "Lo primero que se echa al echar, es la hache". Si la acción implica tirar algo, ¡tira también la H!`
             },
             {
                 id: "haber_aver",
                 title: "HABER / A VER",
-                content: "HABER: Verbo auxiliar o sustantivo (existencia).\nEj: 'Tiene que haber algo'. 'Su haber es grande'.\n\nA VER: Preposición 'a' + verbo 'ver'. Indica interés, expectación o comprobación.\nEj: 'Voy a ver a mi abuela'. '¡A ver si apruebas!'."
+                content: `HABER: Verbo auxiliar o sustantivo (existencia).
+Ej: 'Tiene que haber algo'. 'Su haber es grande'.
+
+A VER: Preposición 'a' + verbo 'ver'. Indica interés, expectación o comprobación.
+Ej: 'Voy a ver a mi abuela'. '¡A ver si apruebas!'.`
             },
             {
                 id: "hasta_asta",
                 title: "HASTA / ASTA",
-                content: "HASTA: Preposición que indica límite o final.\nEj: 'Estaré hasta las ocho'.\n\nASTA: Cuerno de animal o palo de la bandera.\nEj: 'El toro tenía un asta rota'. 'Bandera a media asta'."
+                content: `HASTA: Preposición que indica límite o final.
+Ej: 'Estaré hasta las ocho'.
+
+ASTA: Cuerno de animal o palo de la bandera.
+Ej: 'El toro tenía un asta rota'. 'Bandera a media asta'.`
             },
             {
                 id: "ha_a",
                 title: "HA / A",
-                content: "HA: Del verbo haber (auxiliar). Se usa delante de participios (acabados en -ado, -ido).\nEj: 'Ha comido'. 'Ha venido'.\n\nA: Preposición. Se usa en el resto de casos.\nEj: 'Voy a casa'. 'Vamos a jugar'."
+                content: `HA: Del verbo haber (auxiliar). Se usa delante de participios (acabados en -ado, -ido).
+Ej: 'Ha comido'. 'Ha venido'.
+
+A: Preposición. Se usa en el resto de casos.
+Ej: 'Voy a casa'. 'Vamos a jugar'.`
             },
             {
                 id: "tu_tu",
                 title: "TU / TÚ",
-                content: "TÚ: Pronombre personal. Lleva tilde cuando sustituye a la persona.\nEj: 'Tú eres el mejor'.\n\nTU: Adjetivo posesivo. No lleva tilde.\nEj: 'Tu coche es rápido'."
+                content: `TÚ: Pronombre personal. Lleva tilde cuando sustituye a la persona.
+Ej: 'Tú eres el mejor'.
+
+TU: Adjetivo posesivo. No lleva tilde.
+Ej: 'Tu coche es rápido'.`
             },
             {
                 id: "hay_ahi_ay",
                 title: "HAY / AHÍ / ¡AY!",
-                content: "HAY: Del verbo haber (existencia).\nEj: 'Hay manzanas'.\n\nAHÍ: Adverbio de lugar.\nEj: 'Déjalo ahí'.\n\n¡AY!: Interjección de dolor o sorpresa.\nEj: '¡Ay! Me he hecho daño'."
+                content: `HAY: Del verbo haber (existencia).
+Ej: 'Hay manzanas'.
+
+AHÍ: Adverbio de lugar.
+Ej: 'Déjalo ahí'.
+
+¡AY!: Interjección de dolor o sorpresa.
+Ej: '¡Ay! Me he hecho daño'.`
             },
             {
                 id: "el_el",
                 title: "EL / ÉL",
-                content: "ÉL: Pronombre personal. Se refiere a una persona.\nEj: 'Díselo a él'.\n\nEL: Artículo determinado.\nEj: 'El libro está aquí'."
+                content: `ÉL: Pronombre personal. Se refiere a una persona.
+Ej: 'Díselo a él'.
+
+EL: Artículo determinado.
+Ej: 'El libro está aquí'.`
             },
             {
                 id: "mas_mas",
                 title: "MAS / MÁS",
-                content: "MÁS: Adverbio de cantidad. Lleva tilde.\nEj: 'Quiero más café'.\n\nMAS: Conjunción adversativa (equivalente a 'pero'). No lleva tilde.\nEj: 'Quiso ir, mas no pudo'."
+                content: `MÁS: Adverbio de cantidad. Lleva tilde.
+Ej: 'Quiero más café'.
+
+MAS: Conjunción adversativa (equivalente a 'pero'). No lleva tilde.
+Ej: 'Quiso ir, mas no pudo'.`
             },
             {
                 id: "mi_mi",
                 title: "MÍ / MI",
-                content: "MÍ: Pronombre personal. Lleva tilde.\nEj: 'Es para mí'.\n\nMI: Adjetivo posesivo o nota musical.\nEj: 'Mi casa'. 'Nota mi'."
+                content: `MÍ: Pronombre personal. Lleva tilde.
+Ej: 'Es para mí'.
+
+MI: Adjetivo posesivo o nota musical.
+Ej: 'Mi casa'. 'Nota mi'.`
             },
             {
                 id: "vaya_valla",
                 title: "VAYA / VALLA",
-                content: "VAYA: Del verbo ir o interjección.\nEj: 'Espero que vaya bien'. '¡Vaya coche!'\n\nVALLA: Cerca, vallado o obstáculo.\nEj: 'Saltó la valla'."
+                content: `VAYA: Del verbo ir o interjección.
+Ej: 'Espero que vaya bien'. '¡Vaya coche!'
+
+VALLA: Cerca, vallado o obstáculo.
+Ej: 'Saltó la valla'.`
             },
             {
                 id: "cayo_callo",
                 title: "CAYÓ / CALLÓ",
-                content: "CAYÓ: Del verbo caer.\nEj: 'Se cayó al suelo'.\n\nCALLÓ: Del verbo callar.\nEj: 'Se calló porque no sabía la respuesta'."
+                content: `CAYÓ: Del verbo caer.
+Ej: 'Se cayó al suelo'.
+
+CALLÓ: Del verbo callar.
+Ej: 'Se calló porque no sabía la respuesta'.`
             },
             {
                 id: "sino_sino",
                 title: "SINO / SI NO",
-                content: "SINO: Conjunción adversativa o sustantivo (destino).\nEj: 'No es blanco, sino negro'.\n\nSI NO: Condicional + negación.\nEj: 'Si no vienes, me voy'."
+                content: `SINO: Conjunción adversativa o sustantivo (destino).
+Ej: 'No es blanco, sino negro'.
+
+SI NO: Condicional + negación.
+Ej: 'Si no vienes, me voy'.`
             },
             {
                 id: "tambien_tanbien",
                 title: "TAMBIÉN / TAN BIEN",
-                content: "TAMBIÉN: Adverbio de afirmación o igualdad.\nEj: 'Yo también voy'.\n\nTAN BIEN: Cuantificador + adverbio (comparación).\nEj: 'Lo hizo tan bien como tú'."
+                content: `TAMBIÉN: Adverbio de afirmación o igualdad.
+Ej: 'Yo también voy'.
+
+TAN BIEN: Cuantificador + adverbio (comparación).
+Ej: 'Lo hizo tan bien como tú'.`
             },
             {
                 id: "tampoco_tanpoco",
                 title: "TAMPOCO / TAN POCO",
-                content: "TAMPOCO: Adverbio de negación.\nEj: 'No quiero eso tampoco'.\n\nTAN POCO: Cuantificador + adjetivo/adverbio (cantidad).\nEj: 'Comió tan poco que se desmayó'."
+                content: `TAMPOCO: Adverbio de negación.
+Ej: 'No quiero eso tampoco'.
+
+TAN POCO: Cuantificador + adjetivo/adverbio (cantidad).
+Ej: 'Comió tan poco que se desmayó'.`
             }
         ];
 
@@ -184,6 +249,354 @@
                 ],
                 correctAnswer: 'b',
                 explanation: "Efímero es algo de corta duración. Duradero es lo opuesto."
+            },
+            {
+                id: 5,
+                question: "Señale qué definición es la que se corresponde con la palabra TRASTO.",
+                options: [
+                    { id: 'a', text: "Cosa inútil, estropeada, vieja o que estorba." },
+                    { id: 'b', text: "Aparato viejo o que funciona mal." },
+                    { id: 'c', text: "Poner dificultad u obstáculo a la ejecución de algo." },
+                    { id: 'd', text: "Deslucido, estropeado por el uso." }
+                ],
+                correctAnswer: 'a',
+                explanation: "Trasto: Mueble o utillaje inservible. Coloquialmente: Cosa inútil, estropeada, vieja o que estorba."
+            },
+            {
+                id: 6,
+                question: "Señale qué definición es la que se corresponde con la palabra CHARRO.",
+                options: [
+                    { id: 'a', text: "Dicho de una cosa: Recargada de adornos, abigarrada." },
+                    { id: 'b', text: "Aparato viejo o que funciona mal." },
+                    { id: 'c', text: "Natural de México, país de América." },
+                    { id: 'd', text: "Dicho de una persona: Del grupo étnico que habitó el mítico Aztlán." }
+                ],
+                correctAnswer: 'a',
+                explanation: "Charro: Dicho de una cosa: Recargada de adornos, de mal gusto, abigarrada o llamativa."
+            },
+            {
+                id: 7,
+                question: "Señale qué definición es la que se corresponde con la palabra VICHAR.",
+                options: [
+                    { id: 'a', text: "Mirar, con real o aparente desinterés, las mercancías expuestas a la venta." },
+                    { id: 'b', text: "Que carece de lucimiento." },
+                    { id: 'c', text: "Persona aviesa, de malas intenciones." },
+                    { id: 'd', text: "Animal pequeño, especialmente un insecto." }
+                ],
+                correctAnswer: 'a',
+                explanation: "Vichar: (En América) Vigilar, atisbar, observar. Específicamente: Mirar, con real o aparente desinterés, las mercancías expuestas."
+            },
+            {
+                id: 8,
+                question: "Señale qué palabra corresponde a la siguiente definición: \"Mentira, engaño, noticia falsa.\"",
+                options: [
+                    { id: 'a', text: "Patraña" },
+                    { id: 'b', text: "Lampiña" },
+                    { id: 'c', text: "Filfa" },
+                    { id: 'd', text: "Lagotería" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Filfa: Mentira, engaño, noticia falsa."
+            },
+            {
+                id: 9,
+                question: "Señale qué definición es la que se corresponde con la palabra OBTEMPERAR.",
+                options: [
+                    { id: 'a', text: "Alcanzar, conseguir y lograr algo que se merece, solicita o pretende." },
+                    { id: 'b', text: "Trastornar, conturbar o confundir las ideas, alucinar." },
+                    { id: 'c', text: "Obedecer o asentir." },
+                    { id: 'd', text: "Esconder, tapar, disfrazar, encubrir a la vista." }
+                ],
+                correctAnswer: 'c',
+                explanation: "Obtemperar: Obedecer, asentir."
+            },
+            {
+                id: 10,
+                question: "Señale cuál es el sinónimo de la palabra PROLIJO.",
+                options: [
+                    { id: 'a', text: "Extenso" },
+                    { id: 'b', text: "Sucinto" },
+                    { id: 'c', text: "Desordenado" },
+                    { id: 'd', text: "Conciso" }
+                ],
+                correctAnswer: 'a',
+                explanation: "Prolijo: Largo, dilatado con exceso. Cuidadoso o esmerado. Su sinónimo aquí es Extenso. (Sucinto y Conciso son antónimos)."
+            },
+            {
+                id: 11,
+                question: "Señale qué definición es la que se corresponde con la palabra PARANGÓN.",
+                options: [
+                    { id: 'a', text: "Pared o baranda que se pone para evitar caídas, en los puentes, escaleras." },
+                    { id: 'b', text: "Comparación o semejanza." },
+                    { id: 'c', text: "En oratoria, discurso o sermón en alabanza de algo o de alguien." },
+                    { id: 'd', text: "Cara disforme o fantástica que se usa como adorno en ciertas obras de arquitectura." }
+                ],
+                correctAnswer: 'b',
+                explanation: "Parangón: Comparación o semejanza."
+            },
+            {
+                id: 12,
+                question: "¿Qué serie indica el orden alfabético correcto de las siguientes palabras?",
+                options: [
+                    { id: 'a', text: "premisa, preludio, prelusión, presagio, pretexto." },
+                    { id: 'b', text: "preludio, prelusión, premisa, presagio, pretexto." },
+                    { id: 'c', text: "preludio, premisa, prelusión, pretexto, presagio." },
+                    { id: 'd', text: "premisa, presagio, preludio, prelusión, pretexto." }
+                ],
+                correctAnswer: 'b',
+                explanation: "Orden correcto: 1. Preludio (l-u-d), 2. Prelusión (l-u-s), 3. Premisa (m), 4. Presagio (s), 5. Pretexto (t)."
+            },
+            {
+                id: 13,
+                question: "Señale la palabra que NO pertenece al grupo.",
+                options: [
+                    { id: 'a', text: "Vaso" },
+                    { id: 'b', text: "Jarra" },
+                    { id: 'c', text: "Botella" },
+                    { id: 'd', text: "Líquido" }
+                ],
+                correctAnswer: 'd',
+                explanation: "Vaso, Jarra y Botella son recipientes. Líquido es el contenido o estado de la materia."
+            },
+            {
+                id: 14,
+                question: "Señale qué palabra corresponde a la siguiente definición: \"Que habla mucho o demasiado\".",
+                options: [
+                    { id: 'a', text: "Locuaz" },
+                    { id: 'b', text: "Parco" },
+                    { id: 'c', text: "Tímido" },
+                    { id: 'd', text: "Elocuente" }
+                ],
+                correctAnswer: 'a',
+                explanation: "Locuaz: Que habla mucho o demasiado. (Parco es lo contrario, escaso en palabras)."
+            },
+            {
+                id: 15,
+                question: "Señale el sinónimo de la palabra OPROBIO.",
+                options: [
+                    { id: 'a', text: "Indolencia" },
+                    { id: 'b', text: "Inquina" },
+                    { id: 'c', text: "Ignominia" },
+                    { id: 'd', text: "Desagravio" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Oprobio: Ignominia, afrenta, deshonra pública."
+            },
+            {
+                id: 16,
+                question: "Señale qué definición se corresponde con la palabra INEFABLE.",
+                options: [
+                    { id: 'a', text: "Seguro, cierto, indefectible." },
+                    { id: 'b', text: "Que no se puede borrar o quitar." },
+                    { id: 'c', text: "Que no se puede explicar con palabras." },
+                    { id: 'd', text: "Que no se puede evitar." }
+                ],
+                correctAnswer: 'c',
+                explanation: "Inefable: Que no se puede explicar con palabras."
+            },
+            {
+                id: 17,
+                question: "Señale la palabra que NO pertenece al grupo.",
+                options: [
+                    { id: 'a', text: "Premisa" },
+                    { id: 'b', text: "Inferencia" },
+                    { id: 'c', text: "Hipérbole" },
+                    { id: 'd', text: "Conclusión" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Hipérbole es una figura retórica (exageración). Premisa, Inferencia y Conclusión son términos de lógica y razonamiento."
+            },
+            {
+                id: 18,
+                question: "¿Qué serie indica el orden alfabético correcto de las siguientes palabras?",
+                options: [
+                    { id: 'a', text: "Desacato, desafuero, desaliño, desagravio." },
+                    { id: 'b', text: "Desacato, desafuero, desagravio, desaliño." },
+                    { id: 'c', text: "Desafuero, desacato, desaliño, desagravio." },
+                    { id: 'd', text: "Desaliño, desacato, desafuero, desagravio." }
+                ],
+                correctAnswer: 'b',
+                explanation: "Orden correcto: 1. Desacato (c), 2. Desafuero (f), 3. Desagravio (g), 4. Desaliño (l)."
+            },
+            {
+                id: 19,
+                question: "Señale qué palabra corresponde a la siguiente definición: \"De poco aprecio o importancia\".",
+                options: [
+                    { id: 'a', text: "Somero" },
+                    { id: 'b', text: "Venial" },
+                    { id: 'c', text: "Fútil" },
+                    { id: 'd', text: "Superfluo" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Fútil: De poco aprecio o importancia. (Somero es superficial, Venial es perdonable)."
+            },
+            {
+                id: 20,
+                question: "Señale el antónimo de la palabra CONSPICUO.",
+                options: [
+                    { id: 'a', text: "Ilustre" },
+                    { id: 'b', text: "Visible" },
+                    { id: 'c', text: "Ignoto" },
+                    { id: 'd', text: "Eximio" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Conspicuo: Ilustre, visible, sobresaliente. Su antónimo es Ignoto (desconocido, no visible)."
+            },
+            {
+                id: 21,
+                question: "Señale la analogía que completa la serie: ABULIA es a VOLUNTAD como...",
+                options: [
+                    { id: 'a', text: "Negligencia es a Cuidado" },
+                    { id: 'b', text: "Riqueza es a Opulencia" },
+                    { id: 'c', text: "Luz es a Penumbra" },
+                    { id: 'd', text: "Imprudencia es a Irresponsabilidad" }
+                ],
+                correctAnswer: 'a',
+                explanation: "Relación de carencia o antónimos: La abulia es la falta de voluntad. La negligencia es la falta de cuidado."
+            },
+            {
+                id: 22,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Desahucio." },
+                    { id: 'b', text: "Ingerencia" },
+                    { id: 'c', text: "Garaje." },
+                    { id: 'd', text: "Herejía." }
+                ],
+                correctAnswer: 'b',
+                explanation: "Se escribe 'Injerencia' (con j), del verbo injerirse (entremeterse). 'Ingerencia' con g es incorrecto."
+            },
+            {
+                id: 23,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Deshidratar" },
+                    { id: 'b', text: "Exhuberante" },
+                    { id: 'c', text: "Exhalar" },
+                    { id: 'd', text: "Exhaustivo" }
+                ],
+                correctAnswer: 'b',
+                explanation: "\"Exuberante\" se escribe sin h intercalada. Viene del latín *exuberans*."
+            },
+            {
+                id: 24,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Prever" },
+                    { id: 'b', text: "Entrever" },
+                    { id: 'c', text: "Proveer" },
+                    { id: 'd', text: "Preveer" }
+                ],
+                correctAnswer: 'd',
+                explanation: "El verbo es \"Prever\" (ver con anticipación), conjugado como \"ver\". \"Preveer\" es una mezcla incorrecta con \"proveer\"."
+            },
+            {
+                id: 25,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Submarino" },
+                    { id: 'b', text: "Suboficial" },
+                    { id: 'c', text: "Subrealista" },
+                    { id: 'd', text: "Subrayar" }
+                ],
+                correctAnswer: 'c',
+                explanation: "El término correcto es \"Surrealista\". El prefijo \"sub-\" pierde la 'b' en este caso por influencia del francés *surréalisme*."
+            },
+            {
+                id: 26,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Deshielo" },
+                    { id: 'b', text: "Objeción" },
+                    { id: 'c', text: "Sujección" },
+                    { id: 'd', text: "Dirección" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Se escribe \"Sujeción\", derivado de sujetar. Las palabras terminadas en -ción se escriben con 'c' cuando hay un afín terminado en -to, -tor, -torio, -tivo (sujeto). No lleva doble 'c'."
+            },
+            {
+                id: 27,
+                question: "Indique cuál de las siguientes palabras contiene un ERROR ortográfico:",
+                options: [
+                    { id: 'a', text: "Inocuo" },
+                    { id: 'b', text: "Subacuático" },
+                    { id: 'c', text: "Innocuo" },
+                    { id: 'd', text: "Surupio" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Lo correcto es \"Inocuo\" (que no hace daño). \"Innocuo\" es un error ortográfico."
+            },
+            {
+                id: 28,
+                question: "Indique entre las siguientes palabras cuál es el SINÓNIMO de la palabra PRECEPTIVO:",
+                options: [
+                    { id: 'a', text: "Opcional" },
+                    { id: 'b', text: "Obligatorio" },
+                    { id: 'c', text: "Previo" },
+                    { id: 'd', text: "Aconsejable" }
+                ],
+                correctAnswer: 'b',
+                explanation: "Preceptivo significa que contiene un precepto o mandato, por lo tanto es obligatorio."
+            },
+            {
+                id: 29,
+                question: "Indique entre las siguientes palabras cuál es el ANTÓNIMO de la palabra INDÓMITO:",
+                options: [
+                    { id: 'a', text: "Salvaje" },
+                    { id: 'b', text: "Rebelde" },
+                    { id: 'c', text: "Dócil" },
+                    { id: 'd', text: "Bravo" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Indómito es difícil de domar o sujetar. Lo contrario es Dócil."
+            },
+            {
+                id: 30,
+                question: "Indique entre las siguientes palabras cuál es el SINÓNIMO de la palabra DIRIMIR:",
+                options: [
+                    { id: 'a', text: "Discutir" },
+                    { id: 'b', text: "Enredar" },
+                    { id: 'c', text: "Resolver" },
+                    { id: 'd', text: "Dividir" }
+                ],
+                correctAnswer: 'c',
+                explanation: "Dirimir significa resolver o solucionar un desacuerdo o discusión."
+            },
+            {
+                id: 31,
+                question: "Indique entre las siguientes palabras cuál es el ANTÓNIMO de la palabra VEHEMENTE:",
+                options: [
+                    { id: 'a', text: "Impetuoso" },
+                    { id: 'b', text: "Sosegado" },
+                    { id: 'c', text: "Apasionado" },
+                    { id: 'd', text: "Violento" }
+                ],
+                correctAnswer: 'b',
+                explanation: "Vehemente implica fuerza, impetuosidad o pasión. El antónimo es Sosegado (tranquilo)."
+            },
+            {
+                id: 32,
+                question: "Indique entre las siguientes palabras cuál es el SINÓNIMO de la palabra APLOMO:",
+                options: [
+                    { id: 'a', text: "Pesadez" },
+                    { id: 'b', text: "Serenidad" },
+                    { id: 'c', text: "Verticalidad" },
+                    { id: 'd', text: "Arrogancia" }
+                ],
+                correctAnswer: 'b',
+                explanation: "En sentido figurado, aplomo significa serenidad, circunspección y gravedad."
+            },
+            {
+                id: 33,
+                question: "Indique entre las siguientes palabras cuál es el ANTÓNIMO de la palabra INOCUO:",
+                options: [
+                    { id: 'a', text: "Inofensivo" },
+                    { id: 'b', text: "Perjudicial" },
+                    { id: 'c', text: "Aséptico" },
+                    { id: 'd', text: "Inmune" }
+                ],
+                correctAnswer: 'b',
+                explanation: "Inocuo significa que no hace daño. Su antónimo es Perjudicial (que hace daño)."
             }
         ];
 
@@ -257,14 +670,13 @@
             const [score, setScore] = useState(0);
             const [timeLeft, setTimeLeft] = useState(30);
             
-            const [isRandomMode, setIsRandomMode] = useState(false);
             const [activeQuestions, setActiveQuestions] = useState([]);
             const [selectedSpellingTopic, setSelectedSpellingTopic] = useState(null);
             
-            // Cantidad de preguntas (por defecto 10)
-            const [questionCount, setQuestionCount] = useState(10);
+            // Cantidad de preguntas (por defecto 5)
+            const [questionCount, setQuestionCount] = useState(5);
             
-            // NUEVO: Historial de preguntas usadas para evitar repeticiones en la misma sesión
+            // Historial de preguntas usadas
             const [usedQuestionIds, setUsedQuestionIds] = useState([]);
 
             useEffect(() => {
@@ -281,29 +693,42 @@
                 return () => clearInterval(timer);
             }, [currentQuestionIndex, screen, isAnswered]);
 
-            const startQuiz = () => {
-                // 1. Calculamos cuántas preguntas necesitamos como máximo (limitado por el total de la BD)
-                const totalAvailableInDB = questionsDatabase.length;
-                const questionsNeeded = Math.min(questionCount, totalAvailableInDB);
+            // Función para manejar el cambio de valor del input numérico
+            const handleQuestionCountChange = (e) => {
+                const val = e.target.value;
+                if (val === '') {
+                    setQuestionCount('');
+                } else {
+                    const num = parseInt(val);
+                    if (num > 0) {
+                        setQuestionCount(num);
+                    }
+                }
+            };
 
-                // 2. Filtramos las preguntas que NO han salido todavía (IDs no están en usedQuestionIds)
+            const startQuiz = () => {
+                const count = (questionCount === '' || questionCount < 1) ? 5 : questionCount;
+                if (questionCount === '' || questionCount < 1) setQuestionCount(5);
+
+                const totalAvailableInDB = questionsDatabase.length;
+                const questionsNeeded = Math.min(count, totalAvailableInDB);
+
+                // Filtrar preguntas no usadas
                 let availableQuestions = questionsDatabase.filter(q => !usedQuestionIds.includes(q.id));
 
-                // 3. Si no hay suficientes preguntas nuevas para llenar el cupo...
+                // Si no hay suficientes, resetear historial
                 if (availableQuestions.length < questionsNeeded) {
-                    // Reiniciamos el historial (vuelta a empezar) porque ya se han visto casi todas
-                    // y cogemos de toda la base de datos de nuevo.
                     availableQuestions = [...questionsDatabase];
-                    setUsedQuestionIds([]); // Reset del historial
+                    setUsedQuestionIds([]); 
                 }
 
-                // 4. Barajamos las disponibles
+                // Barajar (Siempre aleatorio)
                 let shuffled = shuffleArray(availableQuestions);
 
-                // 5. Cogemos las que necesitamos
+                // Seleccionar
                 const selectedQuestions = shuffled.slice(0, questionsNeeded);
 
-                // 6. Actualizamos el historial con las nuevas que vamos a usar
+                // Actualizar historial
                 if (availableQuestions.length === totalAvailableInDB && usedQuestionIds.length > 0 && availableQuestions.length < questionsDatabase.length + questionsNeeded) {
                      setUsedQuestionIds(selectedQuestions.map(q => q.id));
                 } else {
@@ -323,7 +748,6 @@
                 setTimeLeft(30);
             };
 
-            // Repetir el MISMO test (sin re-barajar ni cambiar preguntas)
             const restartSameQuiz = () => {
                 setCurrentQuestionIndex(0);
                 setScore(0);
@@ -384,7 +808,7 @@
                                     <span className="text-xs font-bold uppercase tracking-wider">Ortografía</span>
                                 </button>
 
-                                {/* Selector de Preguntas (Arriba a la derecha) */}
+                                {/* Selector de Preguntas */}
                                 <div className="flex items-center bg-white rounded-full px-3 py-1 shadow-sm border border-slate-200 gap-1">
                                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Preguntas:</span>
                                     <input 
@@ -392,7 +816,7 @@
                                         min="1" 
                                         max={questionsDatabase.length}
                                         value={questionCount}
-                                        onChange={(e) => setQuestionCount(parseInt(e.target.value) || 1)}
+                                        onChange={handleQuestionCountChange}
                                         className="w-10 text-center font-bold text-sm text-blue-600 outline-none bg-transparent border-b border-slate-200 focus:border-blue-500 transition-colors"
                                     />
                                 </div>
