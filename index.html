@@ -55,7 +55,9 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        /* ==========================================================================
+        
+
+              /* ==========================================================================
            ⬇️⬇️⬇️ SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA (ACTUALIZADA) ⬇️⬇️⬇️
            ==========================================================================
         */
@@ -63,17 +65,51 @@
             {
                 id: "hecho_echo",
                 title: "HECHO / ECHO",
-                content: `HECHO (con H): Del verbo HACER.
-Es el "hijo" del verbo hacer, y como su padre, lleva H. Se usa para cosas fabricadas, terminadas o sucesos (crear).
-Ej: "Ya he hecho los deberes". "El disfraz está hecho a mano".
+                content: (
+                    <div className="space-y-6">
+                        {/* HECHO */}
+                        <div>
+                            <p className="mb-2 text-lg"><span className="font-black text-blue-600">HECHO</span> (con H):</p>
+                            <p className="mb-2">Es el <strong>"hijo"</strong> del verbo <strong>HACER</strong>. Como su padre (<em>hacer</em>) lleva H, él es muy obediente y se la deja puesta siempre.</p>
+                            <p className="mb-3">Lo usamos cuando hablamos de algo que hemos fabricado, terminado o un suceso que ha ocurrido; es decir, cuando has <strong>creado</strong> algo.</p>
+                            <ul className="list-disc pl-5 space-y-1 text-slate-600 mb-4 italic">
+                                <li>"Ya he <strong>hecho</strong> todos los deberes de mates".</li>
+                                <li>"El disfraz está <strong>hecho</strong> a mano".</li>
+                            </ul>
+                            
+                            {/* EL TRUCO HECHO */}
+                            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 flex gap-3 items-start">
+                                <span className="text-3xl">💡</span>
+                                <div>
+                                    <p className="font-bold underline decoration-yellow-500 underline-offset-2 mb-1 text-slate-800">EL TRUCO</p>
+                                    <p className="italic text-slate-600 text-sm">Si puedes cambiar la palabra por "realizado" o "fabricado", ¡ponle la <strong>H</strong> sin miedo!</p>
+                                </div>
+                            </div>
+                        </div>
 
-💡 EL TRUCO: Si puedes cambiar la palabra por "realizado" o "fabricado", ¡ponle la H sin miedo!
+                        <hr className="border-slate-200" />
 
-ECHO (sin H): Del verbo ECHAR.
-Significa tirar, lanzar, poner o expulsar. Piensa que este verbo es tan fuerte que "ha echado la H a la basura".
-Ej: "Siempre echo los plásticos al contenedor". "Le echo sal a las patatas". "Te echo de menos".
+                        {/* ECHO */}
+                        <div>
+                            <p className="mb-2 text-lg"><span className="font-black text-blue-600">ECHO</span> (sin H):</p>
+                            <p className="mb-2">Viene del verbo <strong>ECHAR</strong>, que significa tirar, lanzar, poner algo o expulsar.</p>
+                            <p className="mb-3">Para acordarte, piensa que este verbo es tan fuerte que <strong>ha echado la H a la basura</strong> y se ha quedado solo.</p>
+                            <ul className="list-disc pl-5 space-y-1 text-slate-600 mb-4 italic">
+                                <li>"Siempre <strong>echo</strong> los plásticos al contenedor".</li>
+                                <li>"Le <strong>echo</strong> mucha sal a las patatas".</li>
+                            </ul>
 
-💡 EL TRUCO: Apréndete esta rima mágica: "Lo primero que se echa al echar, es la hache". Si la acción implica tirar algo, ¡tira también la H!`
+                            {/* EL TRUCO ECHO */}
+                            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 flex gap-3 items-start">
+                                <span className="text-3xl">💡</span>
+                                <div>
+                                    <p className="font-bold underline decoration-yellow-500 underline-offset-2 mb-1 text-slate-800">EL TRUCO</p>
+                                    <p className="italic text-slate-600 text-sm">Apréndete esta rima mágica: <em>"Lo primero que se echa al echar, es la hache"</em>. Si la acción implica tirar algo, ¡tira también la H!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             },
             {
                 id: "haber_aver",
@@ -195,7 +231,7 @@ Ej: 'No quiero eso tampoco'.
 TAN POCO: Cuantificador + adjetivo/adverbio (cantidad).
 Ej: 'Comió tan poco que se desmayó'.`
             }
-        ];
+        ];  
 
         /* ==========================================================================
            ⬇️⬇️⬇️ SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST ⬇️⬇️⬇️
