@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OpoVerbal</title>
+    <title>OpoVerbal - Entrena tu mente</title>
     
-    <!-- 1. CARGA DE LIBRERÍAS -->
+    <!-- TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- REACT & REACT DOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- BABEL -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- 2. CARGA DE PREGUNTAS EXTERNAS -->
-    <!-- Importante: El archivo preguntas.js debe estar junto a este archivo -->
-    <script src="preguntas.js"></script>
-
-    <!-- 3. FUENTES Y ESTILOS -->
+    <!-- ESTILOS PERSONALIZADOS Y FUENTES -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overscroll-behavior: none; }
@@ -40,6 +40,12 @@
         
         /* Ocultar scrollbar */
         ::-webkit-scrollbar { display: none; }
+
+        /* Estilo discreto para el input número */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button {  
+           opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 h-screen w-screen overflow-hidden selection:bg-blue-100">
@@ -49,15 +55,159 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- ILUSTRACIÓN (Con todas las burbujas) ---
+        /* ==========================================================================
+           ⬇️⬇️⬇️ SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA ⬇️⬇️⬇️
+           ==========================================================================
+        */
+        const spellingDatabase = [
+            {
+                id: "hecho_echo",
+                title: "HECHO / ECHO",
+                content: "HECHO: Del verbo hacer (participio). Significa realizar algo o un suceso.\nEj: 'He hecho los deberes'. 'Es un hecho probado'.\n\nECHO: Del verbo echar. Significa tirar, lanzar o expulsar.\nEj: 'Echo la carta al buzón'. 'Te echo de menos'."
+            },
+            {
+                id: "haber_aver",
+                title: "HABER / A VER",
+                content: "HABER: Verbo auxiliar o sustantivo (existencia).\nEj: 'Tiene que haber algo'. 'Su haber es grande'.\n\nA VER: Preposición 'a' + verbo 'ver'. Indica interés, expectación o comprobación.\nEj: 'Voy a ver a mi abuela'. '¡A ver si apruebas!'."
+            },
+            {
+                id: "hasta_asta",
+                title: "HASTA / ASTA",
+                content: "HASTA: Preposición que indica límite o final.\nEj: 'Estaré hasta las ocho'.\n\nASTA: Cuerno de animal o palo de la bandera.\nEj: 'El toro tenía un asta rota'. 'Bandera a media asta'."
+            },
+            {
+                id: "ha_a",
+                title: "HA / A",
+                content: "HA: Del verbo haber (auxiliar). Se usa delante de participios (acabados en -ado, -ido).\nEj: 'Ha comido'. 'Ha venido'.\n\nA: Preposición. Se usa en el resto de casos.\nEj: 'Voy a casa'. 'Vamos a jugar'."
+            },
+            {
+                id: "tu_tu",
+                title: "TU / TÚ",
+                content: "TÚ: Pronombre personal. Lleva tilde cuando sustituye a la persona.\nEj: 'Tú eres el mejor'.\n\nTU: Adjetivo posesivo. No lleva tilde.\nEj: 'Tu coche es rápido'."
+            },
+            {
+                id: "hay_ahi_ay",
+                title: "HAY / AHÍ / ¡AY!",
+                content: "HAY: Del verbo haber (existencia).\nEj: 'Hay manzanas'.\n\nAHÍ: Adverbio de lugar.\nEj: 'Déjalo ahí'.\n\n¡AY!: Interjección de dolor o sorpresa.\nEj: '¡Ay! Me he hecho daño'."
+            },
+            {
+                id: "el_el",
+                title: "EL / ÉL",
+                content: "ÉL: Pronombre personal. Se refiere a una persona.\nEj: 'Díselo a él'.\n\nEL: Artículo determinado.\nEj: 'El libro está aquí'."
+            },
+            {
+                id: "mas_mas",
+                title: "MAS / MÁS",
+                content: "MÁS: Adverbio de cantidad. Lleva tilde.\nEj: 'Quiero más café'.\n\nMAS: Conjunción adversativa (equivalente a 'pero'). No lleva tilde.\nEj: 'Quiso ir, mas no pudo'."
+            },
+            {
+                id: "mi_mi",
+                title: "MÍ / MI",
+                content: "MÍ: Pronombre personal. Lleva tilde.\nEj: 'Es para mí'.\n\nMI: Adjetivo posesivo o nota musical.\nEj: 'Mi casa'. 'Nota mi'."
+            },
+            {
+                id: "vaya_valla",
+                title: "VAYA / VALLA",
+                content: "VAYA: Del verbo ir o interjección.\nEj: 'Espero que vaya bien'. '¡Vaya coche!'\n\nVALLA: Cerca, vallado o obstáculo.\nEj: 'Saltó la valla'."
+            },
+            {
+                id: "cayo_callo",
+                title: "CAYÓ / CALLÓ",
+                content: "CAYÓ: Del verbo caer.\nEj: 'Se cayó al suelo'.\n\nCALLÓ: Del verbo callar.\nEj: 'Se calló porque no sabía la respuesta'."
+            },
+            {
+                id: "sino_sino",
+                title: "SINO / SI NO",
+                content: "SINO: Conjunción adversativa o sustantivo (destino).\nEj: 'No es blanco, sino negro'.\n\nSI NO: Condicional + negación.\nEj: 'Si no vienes, me voy'."
+            },
+            {
+                id: "tambien_tanbien",
+                title: "TAMBIÉN / TAN BIEN",
+                content: "TAMBIÉN: Adverbio de afirmación o igualdad.\nEj: 'Yo también voy'.\n\nTAN BIEN: Cuantificador + adverbio (comparación).\nEj: 'Lo hizo tan bien como tú'."
+            },
+            {
+                id: "tampoco_tanpoco",
+                title: "TAMPOCO / TAN POCO",
+                content: "TAMPOCO: Adverbio de negación.\nEj: 'No quiero eso tampoco'.\n\nTAN POCO: Cuantificador + adjetivo/adverbio (cantidad).\nEj: 'Comió tan poco que se desmayó'."
+            }
+        ];
+
+        /* ==========================================================================
+           ⬇️⬇️⬇️ SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST ⬇️⬇️⬇️
+           ==========================================================================
+        */
+        const questionsDatabase = [
+            {
+                id: 1,
+                question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"",
+                options: [
+                    { id: 'a', text: "Fontana" },
+                    { id: 'b', text: "Riachuelo" },
+                    { id: 'c', text: "Caudal" },
+                    { id: 'd', text: "Pechina" }
+                ],
+                correctAnswer: 'a',
+                explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\"."
+            },
+            {
+                id: 2,
+                question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.",
+                options: [
+                    { id: 'a', text: "Menoscabar, disminuir algo no material. MELLAR" },
+                    { id: 'b', text: "Poner nervioso." },
+                    { id: 'c', text: "Estar subordinado a alguien o algo." },
+                    { id: 'd', text: "Echar a perder cualquier asunto. ESTROPEAR" }
+                ],
+                correctAnswer: 'b',
+                explanation: "Enervar: Poner nervioso, excitar, airar. En el contexto de oposiciones, suele buscarse esta acepción frente a 'debilitar'."
+            },
+            {
+                id: 3,
+                question: "Señale cuál es el sinónimo de la palabra ACERBO.",
+                options: [
+                    { id: 'a', text: "Alegre" },
+                    { id: 'b', text: "Famélico" },
+                    { id: 'c', text: "Fatídico" },
+                    { id: 'd', text: "Desapacible" }
+                ],
+                correctAnswer: 'd',
+                explanation: "Acerbo significa áspero al gusto o cruel/riguroso de genio. Desapacible es su sinónimo más cercano."
+            },
+            {
+                id: 4,
+                question: "Señale el antónimo de: EFÍMERO",
+                options: [
+                    { id: 'a', text: "Fugaz" },
+                    { id: 'b', text: "Duradero" },
+                    { id: 'c', text: "Pasajero" },
+                    { id: 'd', text: "Breve" }
+                ],
+                correctAnswer: 'b',
+                explanation: "Efímero es algo de corta duración. Duradero es lo opuesto."
+            }
+        ];
+
+        /* ==========================================================================
+           ⬇️⬇️⬇️ SECCIÓN 3: CÓDIGO DE LA APLICACIÓN (LÓGICA Y DISEÑO) ⬇️⬇️⬇️
+           ==========================================================================
+        */
+
+        // --- UTILS ---
+        const shuffleArray = (array) => {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        };
+
+        // --- ILUSTRACIÓN ---
         const CustomPhoneIllustration = () => (
             <div className="relative w-56 h-56 mx-auto mt-2 mb-4">
                 <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-lg">
-                    {/* Teléfono */}
                     <rect x="65" y="20" width="170" height="260" rx="25" fill="none" stroke="#1E293B" strokeWidth="7" />
                     <path d="M110 20 L110 32 Q110 40 120 40 L180 40 Q190 40 190 32 L190 20" fill="#1E293B" />
-
-                    {/* Burbujas Flotantes */}
                     <g className="float-fast">
                         <rect x="170" y="35" width="90" height="36" rx="18" fill="#60A5FA" />
                         <path d="M200 70 L205 80 L215 70 Z" fill="#60A5FA" />
@@ -94,11 +244,10 @@
         const IconX = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
         const IconHome = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
         const IconChevronRight = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>;
-
-        // --- LÓGICA DE DATOS ---
-        // Intentamos cargar las preguntas desde window.MisPreguntas (cargado por preguntas.js)
-        // Si falla (ej. archivo no encontrado), usa un array vacío para no romper la app.
-        const questionsDatabase = window.MisPreguntas || [];
+        const IconBook = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
+        const IconArrowLeft = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>;
+        const IconRefresh = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/></svg>;
+        const IconPlay = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
 
         function App() {
             const [screen, setScreen] = useState('welcome');
@@ -107,6 +256,16 @@
             const [isAnswered, setIsAnswered] = useState(false);
             const [score, setScore] = useState(0);
             const [timeLeft, setTimeLeft] = useState(30);
+            
+            const [isRandomMode, setIsRandomMode] = useState(false);
+            const [activeQuestions, setActiveQuestions] = useState([]);
+            const [selectedSpellingTopic, setSelectedSpellingTopic] = useState(null);
+            
+            // Cantidad de preguntas (por defecto 10)
+            const [questionCount, setQuestionCount] = useState(10);
+            
+            // NUEVO: Historial de preguntas usadas para evitar repeticiones en la misma sesión
+            const [usedQuestionIds, setUsedQuestionIds] = useState([]);
 
             useEffect(() => {
                 if (screen !== 'quiz' || isAnswered) return;
@@ -123,10 +282,39 @@
             }, [currentQuestionIndex, screen, isAnswered]);
 
             const startQuiz = () => {
-                if (questionsDatabase.length === 0) {
-                    alert("⚠️ No se han encontrado las preguntas. Asegúrate de subir el archivo 'preguntas.js' junto con 'index.html'.");
-                    return;
+                // 1. Calculamos cuántas preguntas necesitamos como máximo (limitado por el total de la BD)
+                const totalAvailableInDB = questionsDatabase.length;
+                const questionsNeeded = Math.min(questionCount, totalAvailableInDB);
+
+                // 2. Filtramos las preguntas que NO han salido todavía (IDs no están en usedQuestionIds)
+                let availableQuestions = questionsDatabase.filter(q => !usedQuestionIds.includes(q.id));
+
+                // 3. Si no hay suficientes preguntas nuevas para llenar el cupo...
+                if (availableQuestions.length < questionsNeeded) {
+                    // Reiniciamos el historial (vuelta a empezar) porque ya se han visto casi todas
+                    // y cogemos de toda la base de datos de nuevo.
+                    availableQuestions = [...questionsDatabase];
+                    setUsedQuestionIds([]); // Reset del historial
                 }
+
+                // 4. Barajamos las disponibles
+                let shuffled = shuffleArray(availableQuestions);
+
+                // 5. Cogemos las que necesitamos
+                const selectedQuestions = shuffled.slice(0, questionsNeeded);
+
+                // 6. Actualizamos el historial con las nuevas que vamos a usar
+                if (availableQuestions.length === totalAvailableInDB && usedQuestionIds.length > 0 && availableQuestions.length < questionsDatabase.length + questionsNeeded) {
+                     setUsedQuestionIds(selectedQuestions.map(q => q.id));
+                } else {
+                     if (availableQuestions.length === totalAvailableInDB) {
+                         setUsedQuestionIds(selectedQuestions.map(q => q.id));
+                     } else {
+                         setUsedQuestionIds(prev => [...prev, ...selectedQuestions.map(q => q.id)]);
+                     }
+                }
+
+                setActiveQuestions(selectedQuestions);
                 setScreen('quiz');
                 setCurrentQuestionIndex(0);
                 setScore(0);
@@ -135,21 +323,40 @@
                 setTimeLeft(30);
             };
 
+            // Repetir el MISMO test (sin re-barajar ni cambiar preguntas)
+            const restartSameQuiz = () => {
+                setCurrentQuestionIndex(0);
+                setScore(0);
+                setIsAnswered(false);
+                setSelectedOption(null);
+                setTimeLeft(30);
+                setScreen('quiz');
+            };
+
             const goHome = () => {
                 setScreen('welcome');
+            };
+
+            const goToSpellingMenu = () => {
+                setScreen('spelling_menu');
+            };
+
+            const openSpellingTopic = (topic) => {
+                setSelectedSpellingTopic(topic);
+                setScreen('spelling_detail');
             };
 
             const handleOptionSelect = (optionId) => {
                 if (isAnswered) return;
                 setSelectedOption(optionId);
                 setIsAnswered(true);
-                if (optionId === questionsDatabase[currentQuestionIndex].correctAnswer) {
+                if (optionId === activeQuestions[currentQuestionIndex].correctAnswer) {
                     setScore(score + 1);
                 }
             };
 
             const nextQuestion = () => {
-                if (currentQuestionIndex < questionsDatabase.length - 1) {
+                if (currentQuestionIndex < activeQuestions.length - 1) {
                     setCurrentQuestionIndex(currentQuestionIndex + 1);
                     setSelectedOption(null);
                     setIsAnswered(false);
@@ -162,10 +369,36 @@
             // --- PANTALLA 1: PORTADA ---
             if (screen === 'welcome') {
                 return (
-                    <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-start pt-8 p-4 relative overflow-hidden">
+                    <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-start pt-2 p-4 relative overflow-hidden">
                         
-                        <div className="w-full max-w-sm text-center z-10 slide-up flex flex-col items-center justify-start gap-2">
-                            <h1 className="text-5xl font-extrabold text-slate-800 mb-1 tracking-tight">VerbalOpo</h1>
+                        <div className="w-full max-w-sm text-center z-10 slide-up flex flex-col items-center justify-start gap-2 mt-4">
+                            
+                            {/* BOTONES SUPERIORES */}
+                            <div className="flex gap-2 mb-2 w-full justify-center">
+                                {/* Botón Ortografía */}
+                                <button 
+                                    onClick={goToSpellingMenu}
+                                    className="py-2 px-4 rounded-full shadow-sm border border-slate-200 bg-white text-slate-600 flex items-center gap-1 transition-all active:scale-95"
+                                >
+                                    <IconBook />
+                                    <span className="text-xs font-bold uppercase tracking-wider">Ortografía</span>
+                                </button>
+
+                                {/* Selector de Preguntas (Arriba a la derecha) */}
+                                <div className="flex items-center bg-white rounded-full px-3 py-1 shadow-sm border border-slate-200 gap-1">
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Preguntas:</span>
+                                    <input 
+                                        type="number" 
+                                        min="1" 
+                                        max={questionsDatabase.length}
+                                        value={questionCount}
+                                        onChange={(e) => setQuestionCount(parseInt(e.target.value) || 1)}
+                                        className="w-10 text-center font-bold text-sm text-blue-600 outline-none bg-transparent border-b border-slate-200 focus:border-blue-500 transition-colors"
+                                    />
+                                </div>
+                            </div>
+
+                            <h1 className="text-5xl font-extrabold text-slate-800 mb-1 tracking-tight">OpoVerbal</h1>
                             
                             <div className="px-4 leading-tight">
                                 <p className="text-lg text-slate-600 font-semibold">
@@ -178,14 +411,64 @@
                             <div className="mt-4">
                                 <button 
                                     onClick={startQuiz}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-3 px-10 rounded-full shadow-xl shadow-blue-200/50 transform transition active:scale-95"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-2 px-8 rounded-full shadow-xl shadow-blue-200/50 transform transition active:scale-95"
                                 >
                                     Empezar a practicar
                                 </button>
                             </div>
 
-                            <div className="mt-6 text-[10px] text-slate-400 font-medium uppercase tracking-widest">
-                                (c) Manu Sansano
+                            <div className="mt-6 text-[10px] text-slate-400 font-medium tracking-widest">
+                                (c) manu sansano v1.1
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // --- PANTALLA: MENÚ ORTOGRAFÍA ---
+            if (screen === 'spelling_menu') {
+                return (
+                    <div className="h-full w-full bg-slate-50 flex flex-col font-sans fade-in">
+                        <div className="bg-white shadow-sm px-4 py-4 flex items-center gap-3 z-10">
+                            <button onClick={goHome} className="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-600">
+                                <IconArrowLeft />
+                            </button>
+                            <h2 className="text-xl font-black text-slate-800 tracking-tight">ORTOGRAFÍA</h2>
+                        </div>
+                        
+                        <div className="flex-1 overflow-y-auto p-4">
+                            <div className="grid grid-cols-2 gap-3 pb-4">
+                                {spellingDatabase.map((topic) => (
+                                    <button 
+                                        key={topic.id}
+                                        onClick={() => openSpellingTopic(topic)}
+                                        className="bg-white p-3 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all text-center active:scale-[0.98] flex items-center justify-center min-h-[70px]"
+                                    >
+                                        <span className="text-sm font-bold text-slate-700 uppercase leading-tight">{topic.title}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // --- PANTALLA: DETALLE ORTOGRAFÍA ---
+            if (screen === 'spelling_detail' && selectedSpellingTopic) {
+                return (
+                    <div className="h-full w-full bg-slate-50 flex flex-col font-sans slide-up">
+                        <div className="bg-white shadow-sm px-4 py-4 flex items-center gap-3 z-10">
+                            <button onClick={() => setScreen('spelling_menu')} className="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-600">
+                                <IconArrowLeft />
+                            </button>
+                            <h2 className="text-lg font-black text-slate-800 tracking-tight truncate">{selectedSpellingTopic.title}</h2>
+                        </div>
+                        
+                        <div className="flex-1 overflow-y-auto p-6">
+                            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+                                <div className="prose prose-slate text-base leading-relaxed whitespace-pre-line text-slate-700">
+                                    {selectedSpellingTopic.content}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -205,55 +488,54 @@
                             
                             <div className="flex items-baseline justify-center gap-1 mb-8">
                                 <span className="text-6xl font-black text-blue-600 tracking-tighter">{score}</span>
-                                <span className="text-xl text-slate-400 font-medium">/ {questionsDatabase.length}</span>
+                                <span className="text-xl text-slate-400 font-medium">/ {activeQuestions.length}</span>
                             </div>
                             
-                            <button onClick={startQuiz} className="w-full bg-slate-900 text-white py-3.5 rounded-xl font-bold mb-3 shadow-lg active:scale-95 transition-transform">
-                                Repetir Test
-                            </button>
-                            <button onClick={goHome} className="w-full bg-white text-slate-500 border-2 border-slate-100 py-3.5 rounded-xl font-bold hover:bg-slate-50 active:scale-95 transition-transform">
-                                Volver al Inicio
-                            </button>
+                            <div className="space-y-3 w-full">
+                                <button onClick={startQuiz} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2">
+                                    <IconPlay /> Nuevo Test
+                                </button>
+                                
+                                <button onClick={restartSameQuiz} className="w-full bg-slate-800 text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition-transform flex items-center justify-center gap-2">
+                                    <IconRefresh /> Repetir Test
+                                </button>
+                                
+                                <button onClick={goHome} className="w-full bg-white text-slate-500 border-2 border-slate-100 py-3 rounded-xl font-bold hover:bg-slate-50 active:scale-95 transition-transform flex items-center justify-center gap-2">
+                                    <IconHome /> Volver al Inicio
+                                </button>
+                            </div>
                         </div>
                     </div>
                 );
             }
 
             // --- PANTALLA 3: QUIZ ---
-            const currentQuestion = questionsDatabase[currentQuestionIndex];
+            const currentQuestion = activeQuestions[currentQuestionIndex];
             return (
                 <div className="h-full w-full bg-slate-50 flex flex-col items-center font-sans fade-in">
-                    
-                    {/* Header */}
                     <div className="w-full max-w-md bg-white shadow-sm z-10 px-4 py-3 flex items-center justify-between shrink-0">
                         <button onClick={goHome} className="p-2 -ml-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
                             <IconHome />
                         </button>
-                        <span className="text-xl font-black text-slate-700 tracking-wide">VERBALOPO</span>
-                        
+                        <span className="text-xl font-black text-slate-700 tracking-wide">OpoVerbal</span>
                         <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full font-mono font-bold text-sm ${timeLeft < 10 ? 'bg-red-50 text-red-500' : 'bg-slate-100 text-slate-600'}`}>
                             <IconTimer /> {timeLeft}s
                         </div>
                     </div>
 
-                    {/* Contenido */}
                     <div className="w-full max-w-md flex-1 overflow-y-auto p-4 flex flex-col">
-                        
                         <div className="mb-3">
                             <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-extrabold rounded-full tracking-wider">
-                                PREGUNTA {currentQuestionIndex + 1} DE {questionsDatabase.length}
+                                PREGUNTA {currentQuestionIndex + 1} DE {activeQuestions.length}
                             </span>
                         </div>
-                        
                         <h3 className="text-lg font-bold text-slate-800 leading-snug mb-5">
                             {currentQuestion.question}
                         </h3>
-
                         <div className="space-y-2.5 mb-2">
                             {currentQuestion.options.map((option) => {
                                 const isSelected = selectedOption === option.id;
                                 const isCorrect = option.id === currentQuestion.correctAnswer;
-                                
                                 let containerClass = "border border-slate-200 bg-white shadow-sm hover:border-blue-300";
                                 let textClass = "text-slate-600 font-medium";
                                 let circleClass = "bg-slate-100 text-slate-400 font-bold";
@@ -294,7 +576,6 @@
                                 );
                             })}
                         </div>
-
                         {isAnswered && (
                             <div className="mt-1 pt-2 slide-up">
                                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-3">
@@ -306,13 +587,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                                 <div className="flex justify-center">
                                     <button 
                                         onClick={nextQuestion}
                                         className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-200 active:bg-blue-700 active:scale-[0.98] transition-all flex items-center gap-2"
                                     >
-                                        {currentQuestionIndex < questionsDatabase.length - 1 ? 'Siguiente Pregunta' : 'Ver Resultados'}
+                                        {currentQuestionIndex < activeQuestions.length - 1 ? 'Siguiente Pregunta' : 'Ver Resultados'}
                                         <IconChevronRight />
                                     </button>
                                 </div>
