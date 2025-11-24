@@ -16,11 +16,9 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- ESTILOS PERSONALIZADOS Y FUENTES -->
-    <!-- Importamos Quicksand para la fuente redonda solicitada -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overscroll-behavior: none; }
-        /* Clase específica para la fuente redonda de la caja */
         .font-round { font-family: 'Quicksand', sans-serif; }
         
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
@@ -29,21 +27,14 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Fondo premium sutil */
         .bg-verbalopo {
             background: radial-gradient(circle at 50% 0%, #eff6ff 0%, #ffffff 100%);
         }
         
-        /* Ocultar scrollbar */
         ::-webkit-scrollbar { display: none; }
-
-        /* Input número limpio */
         input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button {  
-           opacity: 1;
-        }
+        input[type=number]::-webkit-outer-spin-button { opacity: 1; }
         
-        /* Tooltip */
         .tooltip-arrow {
             width: 0; height: 0; 
             border-left: 6px solid transparent;
@@ -54,8 +45,6 @@
             left: 50%;
             transform: translateX(-50%);
         }
-
-        /* Select nativo invisible */
         .native-select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -73,7 +62,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- UTILS ---
         function shuffleArray(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
@@ -83,10 +71,7 @@
             return newArray;
         }
 
-        /* ==========================================================================
-           SECCIÓN 1: BASE DE DATOS - ORTOGRAFÍA
-           ==========================================================================
-        */
+        /* ================= BASE DE DATOS ================= */
         const spellingDatabase = [
             {
                 id: "hecho_echo",
@@ -129,11 +114,7 @@
                     </div>
                 )
             },
-            {
-                id: "haber_aver",
-                title: "HABER / A VER",
-                content: `HABER: Verbo auxiliar o sustantivo (existencia).\nEj: 'Tiene que haber algo'. 'Su haber es grande'.\n\nA VER: Preposición 'a' + verbo 'ver'. Indica interés, expectación o comprobación.\nEj: 'Voy a ver a mi abuela'. '¡A ver si apruebas!'.`
-            },
+            { id: "haber_aver", title: "HABER / A VER", content: `HABER: Verbo auxiliar o sustantivo (existencia).\nEj: 'Tiene que haber algo'. 'Su haber es grande'.\n\nA VER: Preposición 'a' + verbo 'ver'. Indica interés, expectación o comprobación.\nEj: 'Voy a ver a mi abuela'. '¡A ver si apruebas!'.` },
             { id: "hasta_asta", title: "HASTA / ASTA", content: "HASTA: Preposición.\nASTA: Cuerno o palo." },
             { id: "ha_a", title: "HA / A", content: "HA: Verbo haber.\nA: Preposición." },
             { id: "tu_tu", title: "TU / TÚ", content: "TÚ: Pronombre.\nTU: Posesivo." },
@@ -148,10 +129,6 @@
             { id: "tampoco_tanpoco", title: "TAMPOCO / TAN POCO", content: "TAMPOCO: Negación.\nTAN POCO: Cantidad." }
         ];
 
-        /* ==========================================================================
-           SECCIÓN 2: BASE DE DATOS - PREGUNTAS TEST (Completa 32)
-           ==========================================================================
-        */
         const questionsDatabase = [
             { id: 1, question: "Señale qué palabra corresponde a la siguiente definición: \"Manantial que brota de la tierra.\"", options: [{ id: 'a', text: "Fontana" }, { id: 'b', text: "Riachuelo" }, { id: 'c', text: "Caudal" }, { id: 'd', text: "Pechina" }], correctAnswer: 'a', explanation: "La respuesta correcta es la a) Fontana. Como experto en el léxico español, te confirmo que el Diccionario de la Real Academia Española (DLE) define fontana simplemente como \"Perteneciente a la fuente\", y a su vez, la primera acepción de \"fuente\" es textualmente \"manantial de agua que brota de la tierra\"." },
             { id: 2, question: "Señale qué definición es la que se corresponde con la palabra ENERVAR.", options: [{ id: 'a', text: "Menoscabar, disminuir algo no material. MELLAR" }, { id: 'b', text: "Poner nervioso." }, { id: 'c', text: "Estar subordinado a alguien o algo." }, { id: 'd', text: "Echar a perder cualquier asunto. ESTROPEAR" }], correctAnswer: 'b', explanation: "Enervar: Poner nervioso, excitar." },
@@ -190,20 +167,20 @@
 
         // --- COMPONENTES ---
 
-        // ILUSTRACIÓN: CAJA INFORMATIVA CENTRAL (Estilo tarjeta destacada)
+        // ILUSTRACIÓN: CAJA INFORMATIVA CENTRAL (MEJORADA)
         const InfoIllustration = () => (
-            <div className="w-full flex flex-col items-center justify-center my-2">
+            <div className="w-full flex flex-col items-center justify-center">
                 {/* Fondo decorativo sutil (Marca de agua OPO MEC) */}
                 <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-[0.03] pointer-events-none select-none">
                     <span className="text-8xl font-black text-slate-900 tracking-tighter leading-none text-center">OPO<br/>MEC</span>
                 </div>
 
-                {/* Tarjeta Informativa */}
-                <div className="bg-white border-2 border-slate-100 shadow-2xl rounded-3xl p-5 w-full max-w-[340px] flex flex-col justify-center transform transition-transform hover:scale-[1.01]">
-                    <h3 className="text-slate-800 font-black text-sm mb-4 leading-tight text-center tracking-wide font-round">
+                {/* Tarjeta Informativa con borde y sombra destacados */}
+                <div className="bg-white border-4 border-slate-100 shadow-2xl rounded-[2rem] p-6 w-full max-w-[360px] flex flex-col justify-center">
+                    <h3 className="text-slate-800 font-black text-sm mb-5 leading-tight text-center tracking-wide font-round">
                         PRÁCTICA LAS PREGUNTAS:
                     </h3>
-                    <ul className="space-y-3 font-bold text-sm leading-tight font-round">
+                    <ul className="space-y-4 font-bold text-base leading-tight font-round"> {/* Texto base (16px) */}
                         <li className="flex items-start gap-3">
                             <div className="w-2 h-2 bg-blue-600 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
                             <span className="text-blue-700">Señale qué palabra corresponde a la siguiente definición: <span className="font-black italic">BLA-BLA-BLA</span></span>
@@ -341,50 +318,57 @@
             // --- PANTALLAS ---
             if (screen === 'welcome') {
                 return (
-                    <div className="h-full w-full bg-verbalopo flex flex-col relative overflow-hidden font-sans">
-                        {/* TITULO */}
-                        <div className="flex-none pt-2 pb-1 px-6 text-center z-10">
-                            <h1 className="text-5xl font-extrabold text-slate-900 mb-1 tracking-tight leading-tight">OpoVerbal</h1>
-                            <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
-                        </div>
+                    // CONTENEDOR PRINCIPAL: Flex Columna, Centrado, Sin scroll
+                    <div className="h-full w-full bg-verbalopo flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans">
+                        
+                        {/* CONTENEDOR UNIFICADO: Agrupa todo con espacios fijos (gap) */}
+                        <div className="w-full max-w-sm flex flex-col items-center gap-8"> {/* gap-8 asegura separación fija */}
+                            
+                            {/* 1. TÍTULO */}
+                            <div className="text-center flex-none">
+                                <h1 className="text-5xl font-extrabold text-slate-900 mb-1 tracking-tight leading-tight">OpoVerbal</h1>
+                                <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
+                            </div>
 
-                        {/* CAJA CENTRAL (Distancia fija con flex y margins controlados) */}
-                        <div className="flex-1 flex flex-col items-center justify-center px-4 w-full">
-                             <InfoIllustration />
-                        </div>
+                            {/* 2. CAJA CENTRAL (Ilustración) */}
+                            <div className="w-full flex justify-center flex-none">
+                                 <InfoIllustration />
+                            </div>
 
-                        {/* BOTONERA INFERIOR */}
-                        <div className="flex-none pb-6 px-6 z-20 w-full max-w-sm mx-auto">
-                            <div className="flex justify-between items-center mb-3 gap-4">
-                                <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all h-10">
-                                    <IconBook /> Ortografía
-                                </button>
-                                <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1 px-2 flex flex-col items-center justify-center relative group h-10">
-                                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none">Nº Preguntas</span>
-                                    <div className="relative flex items-center justify-center w-full h-5">
-                                        <select value={questionCount} onChange={handleQuestionCountChange} className="absolute inset-0 w-full h-full opacity-0 z-10 native-select cursor-pointer">
-                                            {Array.from({ length: questionsDatabase.length }, (_, i) => i + 1).map(num => (
-                                                <option key={num} value={num}>{num}</option>
-                                            ))}
-                                        </select>
-                                        <div className="text-xl font-black text-indigo-600 pointer-events-none leading-none">{questionCount}</div>
-                                    </div>
-                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-32 bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-lg z-50 text-center leading-tight animate-in fade-in zoom-in duration-200">
-                                        Aquí eliges la cantidad de preguntas del test
-                                        <div className="tooltip-arrow"></div>
+                            {/* 3. BOTONES INFERIORES */}
+                            <div className="w-full flex-none">
+                                <div className="flex justify-between items-center mb-3 gap-4">
+                                    <button onClick={goToSpellingMenu} className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-slate-600 font-bold text-sm hover:bg-slate-50 active:scale-95 transition-all h-10">
+                                        <IconBook /> Ortografía
+                                    </button>
+                                    <div className="flex-1 bg-white border border-slate-200 shadow-sm rounded-xl py-1 px-2 flex flex-col items-center justify-center relative group h-10">
+                                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none">Nº Preguntas</span>
+                                        <div className="relative flex items-center justify-center w-full h-5">
+                                            <select value={questionCount} onChange={handleQuestionCountChange} className="absolute inset-0 w-full h-full opacity-0 z-10 native-select cursor-pointer">
+                                                {Array.from({ length: questionsDatabase.length }, (_, i) => i + 1).map(num => (
+                                                    <option key={num} value={num}>{num}</option>
+                                                ))}
+                                            </select>
+                                            <div className="text-xl font-black text-indigo-600 pointer-events-none leading-none">{questionCount}</div>
+                                        </div>
+                                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block w-32 bg-slate-800 text-white text-[10px] p-2 rounded-lg shadow-lg z-50 text-center leading-tight animate-in fade-in zoom-in duration-200">
+                                            Aquí eliges la cantidad de preguntas del test
+                                            <div className="tooltip-arrow"></div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="flex justify-center">
+                                    <button 
+                                        onClick={startQuiz}
+                                        className="px-8 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-full shadow-xl shadow-indigo-500/20 transform transition active:scale-95 flex items-center justify-center gap-2"
+                                    >
+                                        <div className="bg-white/20 p-1 rounded-full"><IconPlay /></div>
+                                        <span>Empezar a practicar</span>
+                                    </button>
+                                </div>
+                                <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.9</div>
                             </div>
-                            <div className="flex justify-center">
-                                <button 
-                                    onClick={startQuiz}
-                                    className="px-8 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-full shadow-xl shadow-indigo-500/20 transform transition active:scale-95 flex items-center justify-center gap-2"
-                                >
-                                    <div className="bg-white/20 p-1 rounded-full"><IconPlay /></div>
-                                    <span>Empezar a practicar</span>
-                                </button>
-                            </div>
-                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v3.8</div>
+
                         </div>
                     </div>
                 );
