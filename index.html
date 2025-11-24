@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- ESTILOS PERSONALIZADOS Y FUENTES -->
+    <!-- Añadimos Quicksand para la fuente redonda de la caja -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overscroll-behavior: none; }
@@ -27,14 +28,19 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* Fondo premium sutil */
         .bg-verbalopo {
             background: radial-gradient(circle at 50% 0%, #eff6ff 0%, #ffffff 100%);
         }
         
+        /* Ocultar scrollbar */
         ::-webkit-scrollbar { display: none; }
+
+        /* Input número limpio */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { opacity: 1; }
         
+        /* Tooltip */
         .tooltip-arrow {
             width: 0; height: 0; 
             border-left: 6px solid transparent;
@@ -62,6 +68,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
+        // --- UTILS ---
         function shuffleArray(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
@@ -167,33 +174,32 @@
 
         // --- COMPONENTES ---
 
-        // ILUSTRACIÓN: CAJA INFORMATIVA CENTRAL (MEJORADA CON TEXTO DE IMAGEN)
+        // ILUSTRACIÓN: CAJA INFORMATIVA CENTRAL (MEJORADA)
         const InfoIllustration = () => (
             <div className="w-full flex flex-col items-center justify-center">
-                {/* Fondo decorativo sutil */}
+                {/* Fondo decorativo sutil (Marca de agua OPO MEC) */}
                 <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-[0.03] pointer-events-none select-none">
                     <span className="text-8xl font-black text-slate-900 tracking-tighter leading-none text-center">OPO<br/>MEC</span>
                 </div>
 
                 {/* Tarjeta Informativa con borde y sombra destacados */}
                 <div className="bg-white border-4 border-slate-100 shadow-2xl rounded-[2rem] p-6 w-full max-w-[360px] flex flex-col justify-center">
-                    {/* Lista sin Título, como pidió el usuario */}
                     <ul className="space-y-4 font-bold text-lg leading-tight font-round"> 
                         <li className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 bg-blue-700 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
-                            <span className="text-blue-800">Domina el vocabulario: <span className="font-medium">Sinónimos, antónimos y definiciones precisas.</span></span>
+                            <span className="text-blue-800"><span className="uppercase">Domina el vocabulario:</span> <span className="font-medium">Sinónimos, antónimos y definiciones precisas.</span></span>
                         </li>
                         <li className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 bg-yellow-700 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
-                            <span className="text-yellow-800">Entrena la lógica verbal: <span className="font-medium">Orden alfabético y palabra intrusa.</span></span>
+                            <span className="text-yellow-800"><span className="uppercase">Entrena la lógica verbal:</span> <span className="font-medium">Orden alfabético y palabra intrusa.</span></span>
                         </li>
                         <li className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 bg-teal-700 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
-                            <span className="text-teal-800">Perfecciona tu ortografía: <span className="font-medium">Detecta errores y consolida las reglas.</span></span>
+                            <span className="text-teal-800"><span className="uppercase">Perfecciona tu ortografía:</span> <span className="font-medium">Detecta errores y consolida las reglas.</span></span>
                         </li>
                          <li className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 bg-lime-700 rounded-full mt-1.5 shrink-0 shadow-sm"></div>
-                            <span className="text-lime-800">Amplía tu léxico: <span className="font-medium">No te quedes en blanco ante palabras cultas.</span></span>
+                            <span className="text-lime-800"><span className="uppercase">Amplía tu léxico:</span> <span className="font-medium">No te quedes en blanco ante palabras cultas.</span></span>
                         </li>
                     </ul>
                 </div>
@@ -322,7 +328,7 @@
                         {/* 1. TÍTULO */}
                         <div className="text-center flex-none">
                             <h1 className="text-5xl font-extrabold text-slate-900 mb-1 tracking-tight leading-tight">OpoVerbal</h1>
-                            <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p>
+                            {/* ELIMINADO: <p className="text-lg text-slate-600 font-medium leading-snug">Potencia la parte verbal de tu psicotécnico</p> */}
                         </div>
 
                         {/* 2. CAJA CENTRAL (Ilustración) */}
@@ -361,7 +367,7 @@
                                     <span>Empezar a practicar</span>
                                 </button>
                             </div>
-                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v4.1</div>
+                            <div className="mt-4 text-center text-[11px] text-slate-400 font-medium">(c) manu-sansano v4.2</div>
                         </div>
                     </div>
                 );
